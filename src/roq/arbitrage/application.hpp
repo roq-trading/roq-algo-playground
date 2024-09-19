@@ -9,11 +9,12 @@
 
 // note! the following are your implementations
 
-#include "simple/config.hpp"
-#include "simple/settings.hpp"
-#include "simple/strategy.hpp"
+#include "roq/arbitrage/config.hpp"
+#include "roq/arbitrage/settings.hpp"
+#include "roq/arbitrage/strategy.hpp"
 
-namespace simple {
+namespace roq {
+namespace arbitrage {
 
 struct Application final : public roq::Service {
   using Service::Service;  // inherit constructors
@@ -28,4 +29,5 @@ struct Application final : public roq::Service {
   using value_type = Strategy;  // note!
 };
 
-}  // namespace simple
+}  // namespace arbitrage
+}  // namespace roq

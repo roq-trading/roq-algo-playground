@@ -1,4 +1,4 @@
-set(TARGET_NAME ${PROJECT_NAME}-simple)
+set(TARGET_NAME ${PROJECT_NAME}-arbitrage)
 
 add_subdirectory(flags)
 
@@ -11,7 +11,6 @@ add_dependencies(${TARGET_NAME} ${TARGET_NAME}-flags-autogen-headers)
 target_link_libraries(
   ${TARGET_NAME}
   PRIVATE ${TARGET_NAME}-flags
-          ${PROJECT_NAME}-tools
           roq-client::roq-client
           roq-client::roq-client-flags
           roq-market::roq-market

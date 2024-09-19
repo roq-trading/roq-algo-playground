@@ -1,16 +1,15 @@
 /* Copyright (c) 2017-2024, Hans Erik Thrane */
 
-#include "simple/strategy.hpp"
+#include "roq/arbitrage/strategy.hpp"
 
 #include "roq/logging.hpp"
 
-#include "tools/simple.hpp"
-
-#include "simple/flags/flags.hpp"
+#include "roq/arbitrage/flags/flags.hpp"
 
 using namespace std::literals;
 
-namespace simple {
+namespace roq {
+namespace arbitrage {
 
 Strategy::Strategy(roq::client::Dispatcher &dispatcher, Settings const &settings)
     : dispatcher_{dispatcher}, symbols_{settings.symbols}, update_freq_{settings.test.update_freq} {
@@ -24,9 +23,6 @@ void Strategy::operator()(roq::Event<roq::Timer> const &event) {
 }
 
 void Strategy::operator()(roq::Event<roq::Connected> const &) {
-  // note!
-  //   Always logged (no verbosity level specified)
-  roq::log::info("1+2={}"sv, tools::Simple::add(1, 2));
 }
 
 void Strategy::operator()(roq::Event<roq::Disconnected> const &) {
@@ -71,4 +67,5 @@ void Strategy::operator()(roq::Event<roq::PositionUpdate> const &) {
 void Strategy::operator()(roq::Event<roq::FundsUpdate> const &) {
 }
 
-}  // namespace simple
+}  // namespace arbitrage
+}  // namespace roq

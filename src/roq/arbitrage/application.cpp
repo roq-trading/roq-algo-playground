@@ -1,18 +1,19 @@
 /* Copyright (c) 2017-2024, Hans Erik Thrane */
 
-#include "simple/application.hpp"
+#include "roq/arbitrage/application.hpp"
 
 #include <cassert>
 #include <vector>
 
 #include "roq/client.hpp"
 
-#include "simple/settings.hpp"
+#include "roq/arbitrage/settings.hpp"
 
 using namespace std::literals;
 using namespace std::chrono_literals;  // NOLINT
 
-namespace simple {
+namespace roq {
+namespace arbitrage {
 
 // === CONSTANTS ===
 
@@ -60,4 +61,5 @@ void Application::trading(Settings const &settings, Config const &config, std::s
   roq::client::Trader{settings, config, params}.dispatch<value_type>(settings);
 }
 
-}  // namespace simple
+}  // namespace arbitrage
+}  // namespace roq

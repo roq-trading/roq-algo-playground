@@ -1,8 +1,9 @@
 /* Copyright (c) 2017-2024, Hans Erik Thrane */
 
-#include "simple/config.hpp"
+#include "roq/arbitrage/config.hpp"
 
-namespace simple {
+namespace roq {
+namespace arbitrage {
 
 Config::Config(Settings const &settings) : settings_{settings} {
 }
@@ -29,4 +30,5 @@ void Config::dispatch(Handler &handler) const {
   });
 }
 
-}  // namespace simple
+}  // namespace arbitrage
+}  // namespace roq
