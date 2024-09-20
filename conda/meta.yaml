@@ -24,7 +24,9 @@ requirements:
     - catch2
     - fmt
     - libabseil
+    - roq-algo
     - roq-api
+    - roq-cache
     - roq-client
     - roq-flags
     - roq-logging
