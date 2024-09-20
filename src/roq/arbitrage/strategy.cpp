@@ -4,6 +4,8 @@
 
 #include "roq/logging.hpp"
 
+#include "roq/utils/safe_cast.hpp"
+
 #include "roq/algo/arbitrage/config.hpp"
 #include "roq/algo/arbitrage/factory.hpp"
 
@@ -22,7 +24,21 @@ namespace arbitrage {
 
 namespace {
 auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
-  auto config = algo::arbitrage::Config{};
+  auto size = std::size(settings.symbols);
+  if (std::size(settings.exchanges) != size)
+    log::fatal("Unexpected: mismatched size: exchanges=[{}], symbols=[{}]"sv, fmt::join(settings.exchanges, ", "sv), fmt::join(settings.symbols, ", "sv));
+  std::vector<algo::Instrument> instruments;
+  for (size_t i = 0; i < size; ++i) {
+    algo::Instrument instrument{
+        .source = utils::safe_cast{i},  // XXX FIXME TODO from flags
+        .exchange = settings.exchanges[i],
+        .symbol = settings.symbols[i],
+    };
+    instruments.emplace_back(std::move(instrument));
+  }
+  auto config = algo::arbitrage::Config{
+      .instruments = instruments,
+  };
   return algo::arbitrage::Factory::create(dispatcher, config, cache);
 }
 }  // namespace
@@ -30,12 +46,13 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
 // === IMPLEMENTATION ===
 
 Strategy::Strategy(roq::client::Dispatcher &dispatcher, Settings const &settings)
-    : dispatcher_{dispatcher}, symbols_{settings.symbols}, update_freq_{settings.test.update_freq}, strategy_{create_strategy(*this, settings, *this)} {
+    : dispatcher_{dispatcher}, strategy_{create_strategy(*this, settings, *this)} {
 }
 
 // client::Handler
 
 // host
+
 void Strategy::operator()(Event<Start> const &event) {
   (*strategy_)(event);
 }
@@ -57,6 +74,7 @@ void Strategy::operator()(Event<Disconnected> const &event) {
 }
 
 // control
+
 void Strategy::operator()(Event<DownloadBegin> const &event) {
   (*strategy_)(event);
 }
@@ -70,11 +88,13 @@ void Strategy::operator()(Event<Ready> const &event) {
 }
 
 // config
+
 void Strategy::operator()(Event<GatewaySettings> const &event) {
   (*strategy_)(event);
 }
 
 // stream
+
 void Strategy::operator()(Event<StreamStatus> const &event) {
   (*strategy_)(event);
 }
@@ -92,11 +112,13 @@ void Strategy::operator()(Event<RateLimitTrigger> const &event) {
 }
 
 // service
+
 void Strategy::operator()(Event<GatewayStatus> const &event) {
   (*strategy_)(event);
 }
 
 // market data
+
 void Strategy::operator()(Event<ReferenceData> const &event) {
   (*strategy_)(event);
 }
@@ -126,11 +148,13 @@ void Strategy::operator()(Event<StatisticsUpdate> const &event) {
 }
 
 // market data (derived)
+
 void Strategy::operator()(Event<TimeSeriesUpdate> const &event) {
   (*strategy_)(event);
 }
 
 // order management
+
 void Strategy::operator()(Event<CancelAllOrdersAck> const &event) {
   (*strategy_)(event);
 }
@@ -164,6 +188,7 @@ void Strategy::operator()(Event<TradeUpdate> const &event) {
 }
 
 // account management (exchange)
+
 void Strategy::operator()(Event<PositionUpdate> const &event) {
   (*strategy_)(event);
 }
@@ -173,21 +198,25 @@ void Strategy::operator()(Event<FundsUpdate> const &event) {
 }
 
 // parameters
+
 void Strategy::operator()(Event<ParametersUpdate> const &event) {
   (*strategy_)(event);
 }
 
 // position manager (service)
+
 void Strategy::operator()(Event<PortfolioUpdate> const &event) {
   (*strategy_)(event);
 }
 
 // risk managemenet
+
 void Strategy::operator()(Event<RiskLimitsUpdate> const &event) {
   (*strategy_)(event);
 }
 
 // metrics
+
 void Strategy::operator()(metrics::Writer &writer) const {
   (*strategy_)(writer);
 }

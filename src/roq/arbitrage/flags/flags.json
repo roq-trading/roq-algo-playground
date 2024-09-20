@@ -3,30 +3,25 @@
   "type": "flags",
   "values": [
     {
-      "name": "exchange",
+      "name": "exchanges",
       "type": "std/string",
+      "array": "std/vector",
       "required": true,
-      "default": "deribit",
-      "description": "exchange"
+      "description": "exchanges"
     },
     {
       "name": "symbols",
       "type": "std/string",
+      "array": "std/vector",
       "required": true,
-      "default": "BTC-PERPETUAL",
-      "description": "symbol (regex)"
+      "description": "symbolS"
     },
     {
       "name": "accounts",
       "type": "std/string",
-      "default": "A1",
-      "description": "account (regex)"
-    },
-    {
-      "name": "currencies",
-      "type": "std/string",
-      "default": "BTC|USD",
-      "description": "currencies (regex)"
+      "array": "std/vector",
+      "required": true,
+      "description": "accounts"
     },
     {
       "name": "simulation",

@@ -96,15 +96,12 @@ struct Strategy final : public client::Handler, public algo::strategy::Dispatche
 
   // algo::Cache
 
-  uint64_t get_next_trade_id() override;
+  uint64_t get_next_trade_id() override;  // XXX FIXME why ???
 
   cache::Order *get_order_helper(uint64_t order_id) override;
 
  private:
   roq::client::Dispatcher &dispatcher_;
-  // demo how to use settings (flags)
-  std::string_view const symbols_;
-  std::chrono::nanoseconds const update_freq_;
   utils::unordered_map<uint64_t, cache::Order> orders_;
   std::unique_ptr<algo::strategy::Handler> strategy_;
 };
