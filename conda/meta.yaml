@@ -33,6 +33,8 @@ requirements:
     - roq-market
     - roq-oss-benchmark
     - roq-oss-magic_enum
+    - roq-oss-unordered_dense
+    - roq-utils
 
 about:
   license: BSD-3-Clause
