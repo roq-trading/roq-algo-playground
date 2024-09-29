@@ -22,10 +22,10 @@
       "description": "matcher type"
     },
     {
-      "name": "matcher_source",
+      "name": "market_data_source",
       "type": "std/string",
       "default": "top_of_book",
-      "description": "matcher source"
+      "description": "market data source"
     }
   ]
 }

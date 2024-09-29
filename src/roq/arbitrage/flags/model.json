@@ -8,6 +8,12 @@
       "type": "std/string",
       "default": "simple",
       "description": "strategy (arbitrage)"
+    },
+    {
+      "name": "market_data_source",
+      "type": "std/string",
+      "default": "top_of_book",
+      "description": "market data source"
     }
   ]
 }

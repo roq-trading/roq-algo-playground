@@ -105,7 +105,8 @@ void Application::simulation(Settings const &settings, Config const &config, std
   struct Callback final : public client::Simulator2::Callback {
     explicit Callback(Settings const &settings)
         : type_{magic_enum::enum_cast<decltype(type_)>(settings.simulation.matcher_type, magic_enum::case_insensitive).value()},
-          source_{magic_enum::enum_cast<decltype(source_)>(settings.simulation.matcher_source, magic_enum::case_insensitive).value()} {}
+          market_data_source_{
+              magic_enum::enum_cast<decltype(market_data_source_)>(settings.simulation.market_data_source, magic_enum::case_insensitive).value()} {}
 
     std::unique_ptr<algo::matcher::Handler> create_matcher(
         algo::matcher::Dispatcher &dispatcher,
@@ -119,14 +120,14 @@ void Application::simulation(Settings const &settings, Config const &config, std
               .exchange = exchange,
               .symbol = symbol,
           },
-          .source = source_,
+          .market_data_source = market_data_source_,
       };
       return algo::matcher::Factory::create(type_, dispatcher, config, cache);
     }
 
    private:
     algo::matcher::Factory::Type const type_;
-    algo::matcher::Source const source_;
+    algo::MarketDataSource const market_data_source_;
   } callback{settings};
 
   roq::client::Simulator2{settings, config, callback, sources}.dispatch<value_type>(settings);

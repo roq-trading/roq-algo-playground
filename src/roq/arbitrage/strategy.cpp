@@ -36,8 +36,11 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
     };
     instruments.emplace_back(std::move(instrument));
   }
+  auto market_data_source =
+      magic_enum::enum_cast<decltype(algo::arbitrage::Config::market_data_source)>(settings.model.market_data_source, magic_enum::case_insensitive).value();
   auto config = algo::arbitrage::Config{
       .instruments = instruments,
+      .market_data_source = market_data_source,
       .max_age = settings.max_age,
   };
   return algo::arbitrage::Factory::create(dispatcher, config, cache);
