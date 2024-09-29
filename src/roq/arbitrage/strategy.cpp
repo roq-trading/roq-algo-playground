@@ -38,6 +38,7 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
   }
   auto config = algo::arbitrage::Config{
       .instruments = instruments,
+      .max_age = settings.max_age,
   };
   return algo::arbitrage::Factory::create(dispatcher, config, cache);
 }

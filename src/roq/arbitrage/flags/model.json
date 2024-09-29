@@ -1,0 +1,13 @@
+{
+  "name": "roq/arbitrage/flags/Model",
+  "type": "flags",
+  "prefix": "model_",
+  "values": [
+    {
+      "name": "strategy",
+      "type": "std/string",
+      "default": "simple",
+      "description": "strategy (arbitrage)"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "roq/arbitrage/flags/Simulation",
+  "type": "flags",
+  "prefix": "simulation_",
+  "values": [
+    {
+      "name": "market_data_latency",
+      "type": "std/nanoseconds",
+      "default": "1ms",
+      "description": "market data latency"
+    },
+    {
+      "name": "order_management_latency",
+      "type": "std/nanoseconds",
+      "default": "10ms",
+      "description": "order management latency"
+    },
+    {
+      "name": "matcher_type",
+      "type": "std/string",
+      "default": "simple",
+      "description": "matcher type"
+    },
+    {
+      "name": "matcher_source",
+      "type": "std/string",
+      "default": "top_of_book",
+      "description": "matcher source"
+    }
+  ]
+}

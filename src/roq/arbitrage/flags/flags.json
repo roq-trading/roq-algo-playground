@@ -24,10 +24,16 @@
       "description": "accounts"
     },
     {
-      "name": "simulation",
+      "name": "max_age",
+      "type": "std/nanoseconds",
+      "default": "10s",
+      "description": "max market data age when trading status not supported by exchange"
+    },
+    {
+      "name": "simulate",
       "type": "std/bool",
       "default": false,
-      "description": "simulation?"
+      "description": "simulate?"
     }
   ]
 }

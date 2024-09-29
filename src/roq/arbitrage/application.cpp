@@ -2,10 +2,14 @@
 
 #include "roq/arbitrage/application.hpp"
 
+#include <magic_enum.hpp>
+
 #include <cassert>
 #include <vector>
 
 #include "roq/client.hpp"
+
+#include "roq/algo/matcher/factory.hpp"
 
 #include "roq/arbitrage/settings.hpp"
 
@@ -15,13 +19,61 @@ using namespace std::chrono_literals;  // NOLINT
 namespace roq {
 namespace arbitrage {
 
-// === CONSTANTS ===
+// === HELPERS ===
 
 namespace {
-auto const SNAPSHOT_FREQUENCY = 1s;
-auto const MATCHER = "simple"sv;  // note! filled when market is crossed
-auto const MARKET_DATA_LATENCY = 1ms;
-auto const ORDER_MANAGEMENT_LATENCY = 10ms;
+auto create_symbols(auto &settings) {
+  assert(std::size(settings.exchanges) == std::size(settings.symbols));
+  using result_type = client::Simulator2::Symbols;
+  result_type result;
+  for (size_t i = 0; i < std::size(settings.exchanges); ++i) {
+    auto &exchange = settings.exchanges[i];
+    auto &symbol = settings.symbols[i];
+    result[std::string{exchange}].emplace(symbol);
+  }
+  return result;
+}
+
+auto create_symbols_and_positions(auto &settings) {
+  assert(std::size(settings.exchanges) == std::size(settings.symbols));
+  using result_type = client::Simulator2::SymbolsAndPositions;
+  result_type result;
+  for (size_t i = 0; i < std::size(settings.exchanges); ++i) {
+    auto &exchange = settings.exchanges[i];
+    auto &symbol = settings.symbols[i];
+    result[std::string{exchange}].emplace(symbol, 0.0);  // note! initial position
+  }
+  return result;
+}
+
+auto create_accounts(auto &settings, auto &symbols_and_positions) {
+  using result_type = std::vector<client::Simulator2::Account>;
+  result_type result;
+  for (auto &account : settings.accounts)
+    result.emplace_back(account, symbols_and_positions);
+  return result;
+}
+
+auto create_sources(auto &settings, auto &params, auto &accounts, auto &symbols) {
+  using result_type = std::vector<client::Simulator2::Source>;
+  result_type result;
+  for (auto &item : params) {
+    auto source = client::Simulator2::Source{
+        .path = item,
+        .name = {},
+        .order_management{
+            .accounts = accounts,
+            .latency = settings.simulation.order_management_latency,
+        },
+        .market_data{
+            .symbols = symbols,
+            .latency = settings.simulation.market_data_latency,
+        },
+    };
+    result.emplace_back(std::move(source));
+  }
+  return result;
+}
 }  // namespace
 
 // === IMPLEMENTATION ===
@@ -36,7 +88,7 @@ int Application::main(roq::args::Parser const &args) {
   }
   Settings settings{args};
   Config config{settings};
-  if (settings.simulation) {
+  if (settings.simulate) {
     simulation(settings, config, params);
   } else {
     trading(settings, config, params);
@@ -45,16 +97,39 @@ int Application::main(roq::args::Parser const &args) {
 }
 
 void Application::simulation(Settings const &settings, Config const &config, std::span<std::string_view const> const &params) {
-  auto collector = roq::client::detail::SimulationFactory::create_collector(SNAPSHOT_FREQUENCY);
-  auto create_generator = [&params](auto source_id) { return roq::client::detail::SimulationFactory::create_generator(params[source_id], source_id); };
-  auto create_matcher = [](auto &dispatcher) { return roq::client::detail::SimulationFactory::create_matcher(dispatcher, MATCHER); };
-  auto factory = roq::client::Simulator::Factory{
-      .create_generator = create_generator,
-      .create_matcher = create_matcher,
-      .market_data_latency = MARKET_DATA_LATENCY,
-      .order_management_latency = ORDER_MANAGEMENT_LATENCY,
-  };
-  roq::client::Simulator{settings, config, factory, *collector}.dispatch<value_type>(settings);
+  auto symbols = create_symbols(settings);
+  auto symbols_and_positions = create_symbols_and_positions(settings);
+  auto accounts = create_accounts(settings, symbols_and_positions);
+  auto sources = create_sources(settings, params, accounts, symbols);
+
+  struct Callback final : public client::Simulator2::Callback {
+    explicit Callback(Settings const &settings)
+        : type_{magic_enum::enum_cast<decltype(type_)>(settings.simulation.matcher_type, magic_enum::case_insensitive).value()},
+          source_{magic_enum::enum_cast<decltype(source_)>(settings.simulation.matcher_source, magic_enum::case_insensitive).value()} {}
+
+    std::unique_ptr<algo::matcher::Handler> create_matcher(
+        algo::matcher::Dispatcher &dispatcher,
+        algo::Cache &cache,
+        uint8_t source_id,
+        std::string_view const &exchange,
+        std::string_view const &symbol) override {
+      auto config = algo::matcher::Config{
+          .instrument{
+              .source = source_id,
+              .exchange = exchange,
+              .symbol = symbol,
+          },
+          .source = source_,
+      };
+      return algo::matcher::Factory::create(type_, dispatcher, config, cache);
+    }
+
+   private:
+    algo::matcher::Factory::Type const type_;
+    algo::matcher::Source const source_;
+  } callback{settings};
+
+  roq::client::Simulator2{settings, config, callback, sources}.dispatch<value_type>(settings);
 }
 
 void Application::trading(Settings const &settings, Config const &config, std::span<std::string_view const> const &params) {
