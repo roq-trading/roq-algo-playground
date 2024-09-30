@@ -12,7 +12,7 @@
     {
       "name": "market_data_source",
       "type": "std/string",
-      "default": "top_of_book",
+      "default": "market_by_price",
       "description": "market data source"
     }
   ]
