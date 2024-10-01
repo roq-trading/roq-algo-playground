@@ -119,6 +119,7 @@ void Application::simulation(Settings const &settings, Config const &config, std
               .source = source_id,
               .exchange = exchange,
               .symbol = symbol,
+              .account = {},
           },
           .market_data_source = market_data_source_,
       };

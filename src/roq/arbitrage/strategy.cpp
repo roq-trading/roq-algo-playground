@@ -25,14 +25,19 @@ namespace arbitrage {
 namespace {
 auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
   auto size = std::size(settings.symbols);
-  if (std::size(settings.exchanges) != size)
-    log::fatal("Unexpected: mismatched size: exchanges=[{}], symbols=[{}]"sv, fmt::join(settings.exchanges, ", "sv), fmt::join(settings.symbols, ", "sv));
+  if (std::size(settings.exchanges) != size || std::size(settings.accounts) != size)
+    log::fatal(
+        "Unexpected: mismatched size: exchanges=[{}], symbols=[{}], accounts=[{}]"sv,
+        fmt::join(settings.exchanges, ", "sv),
+        fmt::join(settings.symbols, ", "sv),
+        fmt::join(settings.accounts, ", "sv));
   std::vector<algo::Instrument> instruments;
   for (size_t i = 0; i < size; ++i) {
     algo::Instrument instrument{
         .source = utils::safe_cast{i},  // XXX FIXME TODO from flags
         .exchange = settings.exchanges[i],
         .symbol = settings.symbols[i],
+        .account = settings.accounts[i],
     };
     instruments.emplace_back(std::move(instrument));
   }
