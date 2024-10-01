@@ -5,7 +5,7 @@
 ## Live
 
 ```bash
-roq-algo-playground-arbitrage --simulate=false \
+roq-algo-playground-arbitrage --simulate=false --model_quantity_0=1 --model_threshold=5 \
   --name "trader" \
   --accounts "A1,A1"
   --exchanges "deribit,bybit" \
@@ -17,7 +17,7 @@ roq-algo-playground-arbitrage --simulate=false \
 ## Simulate
 
 ```bash
-roq-algo-playground-arbitrage --simulate=true \
+roq-algo-playground-arbitrage --simulate=true --model_quantity_0=1 --model_threshold=5 \
   --name "trader" \
   --accounts "A1,A1"
   --exchanges "deribit,bybit" \

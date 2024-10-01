@@ -46,7 +46,11 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
   auto config = algo::arbitrage::Config{
       .instruments = instruments,
       .market_data_source = market_data_source,
-      .max_age = settings.max_age,
+      .max_age = settings.model.max_age,
+      .threshold = settings.model.threshold,
+      .quantity_0 = settings.model.quantity_0,
+      .min_position_0 = settings.model.min_position_0,
+      .max_position_0 = settings.model.max_position_0,
   };
   return algo::arbitrage::Factory::create(dispatcher, config, cache);
 }
