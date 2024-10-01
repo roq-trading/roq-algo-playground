@@ -44,6 +44,7 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
   auto market_data_source =
       magic_enum::enum_cast<decltype(algo::arbitrage::Config::market_data_source)>(settings.model.market_data_source, magic_enum::case_insensitive).value();
   auto config = algo::arbitrage::Config{
+      .strategy_id = {},
       .instruments = instruments,
       .market_data_source = market_data_source,
       .max_age = settings.model.max_age,
