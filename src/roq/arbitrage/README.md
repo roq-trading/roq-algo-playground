@@ -4,7 +4,7 @@
 
 ## Live
 
-````bash
+```bash
 roq-algo-playground-arbitrage --simulate=false \
   --name "trader" \
   --accounts "A1,A1"
