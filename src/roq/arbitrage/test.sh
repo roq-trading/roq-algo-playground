@@ -6,6 +6,8 @@ ACCOUNTS="A1,A1"
 EXCHANGES="deribit,bybit"
 SYMBOLS="BTC-PERPETUAL,BTCUSDT"
 
+KERNEL="$(uname -a)"
+
 if [ "$1" == "debug" ]; then
   case "$KERNEL" in
     Linux*)
