@@ -11,6 +11,8 @@
 
 #include "roq/algo/matcher/factory.hpp"
 
+#include "roq/algo/collector/factory.hpp"
+
 #include "roq/arbitrage/settings.hpp"
 
 using namespace std::literals;
@@ -131,11 +133,9 @@ void Application::simulation(Settings const &settings, Config const &config, std
     algo::MarketDataSource const market_data_source_;
   } factory{settings};
 
-  struct Collector final : public client::Collector {
-    void operator()(Event<TradeUpdate> const &event) override { log::warn("event={}"sv, event); }
-  } collector;
+  auto collector = algo::collector::Factory::create(algo::collector::Factory::Type::SUMMARY);
 
-  roq::client::Simulator2{settings, config, factory, collector, sources}.dispatch<value_type>(settings);
+  roq::client::Simulator2{settings, config, factory, *collector, sources}.dispatch<value_type>(settings);
 }
 
 void Application::trading(Settings const &settings, Config const &config, std::span<std::string_view const> const &params) {
