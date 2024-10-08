@@ -102,8 +102,8 @@ void Application::simulation(Settings const &settings, Config const &config, std
   auto accounts = create_accounts(settings, symbols_and_positions);
   auto sources = create_sources(settings, params, accounts, symbols);
 
-  struct Callback final : public client::Simulator2::Callback {
-    explicit Callback(Settings const &settings)
+  struct Factory final : public client::Simulator2::Factory {
+    explicit Factory(Settings const &settings)
         : type_{magic_enum::enum_cast<decltype(type_)>(settings.simulation.matcher_type, magic_enum::case_insensitive).value()},
           market_data_source_{
               magic_enum::enum_cast<decltype(market_data_source_)>(settings.simulation.market_data_source, magic_enum::case_insensitive).value()} {}
@@ -113,7 +113,7 @@ void Application::simulation(Settings const &settings, Config const &config, std
         algo::Cache &cache,
         uint8_t source_id,
         std::string_view const &exchange,
-        std::string_view const &symbol) override {
+        std::string_view const &symbol) const override {
       auto config = algo::matcher::Config{
           .instrument{
               .source = source_id,
@@ -129,9 +129,13 @@ void Application::simulation(Settings const &settings, Config const &config, std
    private:
     algo::matcher::Factory::Type const type_;
     algo::MarketDataSource const market_data_source_;
-  } callback{settings};
+  } factory{settings};
 
-  roq::client::Simulator2{settings, config, callback, sources}.dispatch<value_type>(settings);
+  struct Collector final : public client::Collector {
+    void operator()(Event<TradeUpdate> const &event) override { log::warn("event={}"sv, event); }
+  } collector;
+
+  roq::client::Simulator2{settings, config, factory, collector, sources}.dispatch<value_type>(settings);
 }
 
 void Application::trading(Settings const &settings, Config const &config, std::span<std::string_view const> const &params) {
