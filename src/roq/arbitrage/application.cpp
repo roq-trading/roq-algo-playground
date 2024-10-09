@@ -11,7 +11,7 @@
 
 #include "roq/algo/matcher/factory.hpp"
 
-#include "roq/algo/reporter/factory.hpp"
+#include "roq/algo/reporter/summary.hpp"
 
 #include "roq/arbitrage/settings.hpp"
 
@@ -133,7 +133,12 @@ void Application::simulation(Settings const &settings, Config const &config, std
     algo::MarketDataSource const market_data_source_;
   } factory{settings};
 
-  auto reporter = algo::reporter::Factory::create(algo::reporter::Factory::Type::SUMMARY);
+  auto reporter = [&]() {
+    auto config = algo::reporter::Summary::Config{
+        .frequency = 1min,
+    };
+    return algo::reporter::Summary::create(config);
+  }();
 
   roq::client::Simulator2{settings, config, factory, *reporter, sources}.dispatch<value_type>(settings);
 
