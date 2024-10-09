@@ -135,7 +135,8 @@ void Application::simulation(Settings const &settings, Config const &config, std
 
   auto reporter = [&]() {
     auto config = algo::reporter::Summary::Config{
-        .frequency = 1min,
+        .market_data_source = algo::MarketDataSource::TOP_OF_BOOK,
+        .sample_frequency = 1min,
     };
     return algo::reporter::Summary::create(config);
   }();
