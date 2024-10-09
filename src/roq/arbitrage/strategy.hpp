@@ -6,7 +6,7 @@
 
 #include "roq/cache/order.hpp"
 
-#include "roq/algo/cache.hpp"
+#include "roq/algo/order_cache.hpp"
 
 #include "roq/algo/strategy/dispatcher.hpp"
 #include "roq/algo/strategy/handler.hpp"
@@ -18,7 +18,7 @@
 namespace roq {
 namespace arbitrage {
 
-struct Strategy final : public client::Handler, public algo::strategy::Dispatcher, public algo::Cache {
+struct Strategy final : public client::Handler, public algo::strategy::Dispatcher, public algo::OrderCache {
   Strategy(roq::client::Dispatcher &, Settings const &);
 
   Strategy(Strategy &&) = default;
@@ -94,16 +94,17 @@ struct Strategy final : public client::Handler, public algo::strategy::Dispatche
   void send(CancelAllOrders const &, uint8_t source) override;
   uint8_t broadcast(CancelAllOrders const &) override;
 
-  // algo::Cache
-
-  uint64_t get_next_trade_id() override;  // XXX FIXME why ???
+  // algo::OrderCache
 
   cache::Order *get_order_helper(uint64_t order_id) override;
+
+  uint64_t get_next_trade_id() override;
 
  private:
   roq::client::Dispatcher &dispatcher_;
   utils::unordered_map<uint64_t, cache::Order> orders_;
   std::unique_ptr<algo::strategy::Handler> strategy_;
+  uint64_t next_trade_id_ = {};
 };
 
 }  // namespace arbitrage

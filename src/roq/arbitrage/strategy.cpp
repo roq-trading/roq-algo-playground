@@ -263,17 +263,17 @@ uint8_t Strategy::broadcast(CancelAllOrders const &cancel_all_orders) {
   return dispatcher_.broadcast(cancel_all_orders);
 }
 
-// algo::Cache
-
-uint64_t Strategy::get_next_trade_id() {
-  return 0;
-}
+// algo::OrderCache
 
 cache::Order *Strategy::get_order_helper(uint64_t order_id) {
   auto iter = orders_.find(order_id);
   if (iter != std::end(orders_))
     return &(*iter).second;
   return nullptr;
+}
+
+uint64_t Strategy::get_next_trade_id() {
+  return ++next_trade_id_;
 }
 
 }  // namespace arbitrage
