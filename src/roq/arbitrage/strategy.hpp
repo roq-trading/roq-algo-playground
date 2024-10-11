@@ -92,7 +92,9 @@ struct Strategy final : public client::Handler, public algo::strategy::Dispatche
   void send(CancelOrder const &, uint8_t source, bool is_last) override;
 
   void send(CancelAllOrders const &, uint8_t source) override;
-  uint8_t broadcast(CancelAllOrders const &) override;
+
+  void send(CustomMetrics const &, uint8_t source) override;
+  void send(CustomMatrix const &, uint8_t source) override;
 
   // algo::OrderCache
 

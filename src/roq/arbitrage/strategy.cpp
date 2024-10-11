@@ -259,8 +259,12 @@ void Strategy::send(CancelAllOrders const &cancel_all_orders, uint8_t source) {
   dispatcher_.send(cancel_all_orders, source);
 }
 
-uint8_t Strategy::broadcast(CancelAllOrders const &cancel_all_orders) {
-  return dispatcher_.broadcast(cancel_all_orders);
+void Strategy::send(CustomMetrics const &custom_metrics, uint8_t source) {
+  dispatcher_.send(custom_metrics, source);
+}
+
+void Strategy::send(CustomMatrix const &custom_matrix, uint8_t source) {
+  dispatcher_.send(custom_matrix, source);
 }
 
 // algo::OrderCache
