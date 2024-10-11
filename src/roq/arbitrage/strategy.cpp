@@ -52,6 +52,10 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
       .quantity_0 = settings.model.quantity_0,
       .min_position_0 = settings.model.min_position_0,
       .max_position_0 = settings.model.max_position_0,
+      .position_effect = {},
+      .margin_mode = {},
+      .time_in_force = TimeInForce::GTC,
+      .publish_source = {},
   };
   return algo::arbitrage::Factory::create(dispatcher, config, cache);
 }
