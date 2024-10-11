@@ -23,6 +23,7 @@ namespace arbitrage {
 // === HELPERS ===
 
 namespace {
+// XXX FIXME TODO getting complex when using flags, maybe switch to toml?
 auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
   auto size = std::size(settings.symbols);
   if (std::size(settings.exchanges) != size || std::size(settings.accounts) != size)
@@ -31,30 +32,30 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
         fmt::join(settings.exchanges, ", "sv),
         fmt::join(settings.symbols, ", "sv),
         fmt::join(settings.accounts, ", "sv));
-  std::vector<algo::Instrument> instruments;
+  std::vector<algo::strategy::Leg> legs;
   for (size_t i = 0; i < size; ++i) {
-    algo::Instrument instrument{
+    auto leg = algo::strategy::Leg{
         .source = utils::safe_cast{i},  // XXX FIXME TODO from flags
+        .account = settings.accounts[i],
         .exchange = settings.exchanges[i],
         .symbol = settings.symbols[i],
-        .account = settings.accounts[i],
+        .position_effect = {},
+        .margin_mode = {},
+        .time_in_force = TimeInForce::GTC,
     };
-    instruments.emplace_back(std::move(instrument));
+    legs.emplace_back(std::move(leg));
   }
   auto market_data_source =
       magic_enum::enum_cast<decltype(algo::arbitrage::Config::market_data_source)>(settings.model.market_data_source, magic_enum::case_insensitive).value();
   auto config = algo::arbitrage::Config{
       .strategy_id = {},
-      .instruments = instruments,
+      .legs = legs,
       .market_data_source = market_data_source,
       .max_age = settings.model.max_age,
       .threshold = settings.model.threshold,
       .quantity_0 = settings.model.quantity_0,
       .min_position_0 = settings.model.min_position_0,
       .max_position_0 = settings.model.max_position_0,
-      .position_effect = {},
-      .margin_mode = {},
-      .time_in_force = TimeInForce::GTC,
       .publish_source = {},
   };
   return algo::arbitrage::Factory::create(dispatcher, config, cache);
