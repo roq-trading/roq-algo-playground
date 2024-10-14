@@ -1,6 +1,8 @@
 # Demo: Arbitrage
 
-> Note! Remember to run the gateways with the appropriate flag (`roq-bybit` with `--api="linear"`).
+> Note!
+> Remember to run the gateways with the appropriate flag.
+> In particular, run `roq-bybit` with `--api="inverse"`.
 
 ## Live
 
