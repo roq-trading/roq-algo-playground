@@ -139,7 +139,7 @@ void Application::simulation(Settings const &settings, Config const &config, std
 
   roq::client::Simulator2{settings, config, factory, *reporter, sources}.dispatch<value_type>(settings);
 
-  (*reporter).print();
+  (*reporter).print(algo::reporter::OutputType::TEXT);
 }
 
 void Application::trading(Settings const &settings, Config const &config, std::span<std::string_view const> const &params) {
