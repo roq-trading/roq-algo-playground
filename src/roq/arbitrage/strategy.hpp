@@ -13,13 +13,14 @@
 
 #include "roq/client.hpp"
 
+#include "roq/arbitrage/config.hpp"
 #include "roq/arbitrage/settings.hpp"
 
 namespace roq {
 namespace arbitrage {
 
 struct Strategy final : public client::Handler, public algo::strategy::Dispatcher, public algo::OrderCache {
-  Strategy(roq::client::Dispatcher &, Settings const &);
+  Strategy(roq::client::Dispatcher &, Settings const &, Config const &);
 
   Strategy(Strategy &&) = default;
   Strategy(Strategy const &) = delete;

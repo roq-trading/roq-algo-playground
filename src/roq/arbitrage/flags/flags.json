@@ -3,25 +3,11 @@
   "type": "flags",
   "values": [
     {
-      "name": "exchanges",
+      "name": "config_file",
       "type": "std/string",
-      "array": "std/vector",
+      "validator": "roq/flags/validators/Path",
       "required": true,
-      "description": "exchanges"
-    },
-    {
-      "name": "symbols",
-      "type": "std/string",
-      "array": "std/vector",
-      "required": true,
-      "description": "symbolS"
-    },
-    {
-      "name": "accounts",
-      "type": "std/string",
-      "array": "std/vector",
-      "required": true,
-      "description": "accounts"
+      "description": "config file (path)"
     },
     {
       "name": "max_age",

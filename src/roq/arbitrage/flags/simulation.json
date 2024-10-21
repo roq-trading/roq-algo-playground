@@ -26,6 +26,12 @@
       "type": "std/string",
       "default": "top_of_book",
       "description": "market data source"
+    },
+    {
+      "name": "output_type",
+      "type": "std/string",
+      "default": "text",
+      "description": "report output type"
     }
   ]
 }

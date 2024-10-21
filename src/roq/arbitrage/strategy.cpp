@@ -23,31 +23,27 @@ namespace arbitrage {
 // === HELPERS ===
 
 namespace {
-// XXX FIXME TODO getting complex when using flags, maybe switch to toml?
-auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
-  auto size = std::size(settings.symbols);
-  if (std::size(settings.exchanges) != size || std::size(settings.accounts) != size)
-    log::fatal(
-        "Unexpected: mismatched size: exchanges=[{}], symbols=[{}], accounts=[{}]"sv,
-        fmt::join(settings.exchanges, ", "sv),
-        fmt::join(settings.symbols, ", "sv),
-        fmt::join(settings.accounts, ", "sv));
+template <typename T>
+auto parse_enum(auto &value) {
+  return magic_enum::enum_cast<T>(value, magic_enum::case_insensitive).value();
+}
+
+auto create_strategy(auto &dispatcher, auto &settings, auto &config, auto &cache) {
   std::vector<algo::strategy::Leg> legs;
-  for (size_t i = 0; i < size; ++i) {
+  for (auto &item : config.legs) {
     auto leg = algo::strategy::Leg{
-        .source = utils::safe_cast{i},  // XXX FIXME TODO from flags
-        .account = settings.accounts[i],
-        .exchange = settings.exchanges[i],
-        .symbol = settings.symbols[i],
-        .position_effect = {},
-        .margin_mode = {},
-        .time_in_force = TimeInForce::GTC,
+        .source = item.source,
+        .account = item.account,
+        .exchange = item.exchange,
+        .symbol = item.symbol,
+        .position_effect = item.position_effect,
+        .margin_mode = item.margin_mode,
+        .time_in_force = item.time_in_force,
     };
     legs.emplace_back(std::move(leg));
   }
-  auto market_data_source =
-      magic_enum::enum_cast<decltype(algo::arbitrage::Config::market_data_source)>(settings.model.market_data_source, magic_enum::case_insensitive).value();
-  auto config = algo::arbitrage::Config{
+  auto market_data_source = parse_enum<decltype(algo::arbitrage::Config::market_data_source)>(settings.model.market_data_source);
+  auto config_2 = algo::arbitrage::Config{
       .strategy_id = {},
       .legs = legs,
       .market_data_source = market_data_source,
@@ -58,14 +54,14 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &cache) {
       .max_position_0 = settings.model.max_position_0,
       .publish_source = {},
   };
-  return algo::arbitrage::Factory::create(dispatcher, config, cache);
+  return algo::arbitrage::Factory::create(dispatcher, config_2, cache);
 }
 }  // namespace
 
 // === IMPLEMENTATION ===
 
-Strategy::Strategy(roq::client::Dispatcher &dispatcher, Settings const &settings)
-    : dispatcher_{dispatcher}, strategy_{create_strategy(*this, settings, *this)} {
+Strategy::Strategy(roq::client::Dispatcher &dispatcher, Settings const &settings, Config const &config)
+    : dispatcher_{dispatcher}, strategy_{create_strategy(*this, settings, config, *this)} {
 }
 
 // client::Handler

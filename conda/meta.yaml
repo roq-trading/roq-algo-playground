@@ -35,6 +35,7 @@ requirements:
     - roq-oss-magic_enum
     - roq-oss-unordered_dense
     - roq-utils
+    - tomlplusplus
 
 about:
   license: BSD-3-Clause

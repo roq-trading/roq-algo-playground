@@ -2,9 +2,7 @@
 
 NAME="trader"
 
-ACCOUNTS="A1,A1"
-EXCHANGES="deribit,bybit"
-SYMBOLS="BTC-PERPETUAL,BTCUSD"
+CONFIG_FILE="test.toml"
 
 KERNEL="$(uname -a)"
 
@@ -24,7 +22,5 @@ fi
 
 $PREFIX "./roq-algo-playground-arbitrage" \
   --name "$NAME" \
-  --accounts "$ACCOUNTS" \
-  --exchanges "$EXCHANGES" \
-  --symbols "$SYMBOLS" \
+  --config_file "$CONFIG_FILE" \
   $@

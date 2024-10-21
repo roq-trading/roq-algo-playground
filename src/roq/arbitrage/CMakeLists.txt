@@ -20,6 +20,8 @@ target_link_libraries(
           roq-logging::roq-logging-flags
           roq-flags::roq-flags
           roq-api::roq-api
+          tomlplusplus::tomlplusplus
+          unordered_dense::unordered_dense
           fmt::fmt)
 
 if(ROQ_BUILD_TYPE STREQUAL "Release")
