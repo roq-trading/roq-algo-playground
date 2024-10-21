@@ -6,7 +6,6 @@
 
 #include "roq/utils/safe_cast.hpp"
 
-#include "roq/algo/arbitrage/config.hpp"
 #include "roq/algo/arbitrage/factory.hpp"
 
 #include "roq/arbitrage/flags/flags.hpp"
@@ -25,10 +24,13 @@ namespace arbitrage {
 namespace {
 template <typename T>
 auto parse_enum(auto &value) {
-  return magic_enum::enum_cast<T>(value, magic_enum::case_insensitive).value();
+  auto result = magic_enum::enum_cast<T>(value, magic_enum::case_insensitive);
+  if (!result.has_value())
+    log::fatal(R"(Unexpected: value="{}")"sv, value);
+  return result.value();
 }
 
-auto create_strategy(auto &dispatcher, auto &settings, auto &config, auto &cache) {
+auto create_strategy(auto &dispatcher, auto &settings, auto &order_cache, auto &config) {
   std::vector<algo::strategy::Leg> legs;
   for (auto &item : config.legs) {
     auto leg = algo::strategy::Leg{
@@ -42,26 +44,18 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &config, auto &cache
     };
     legs.emplace_back(std::move(leg));
   }
-  auto market_data_source = parse_enum<decltype(algo::arbitrage::Config::market_data_source)>(settings.model.market_data_source);
   auto config_2 = algo::arbitrage::Config{
-      .strategy_id = {},
       .legs = legs,
-      .market_data_source = market_data_source,
-      .max_age = settings.model.max_age,
-      .threshold = settings.model.threshold,
-      .quantity_0 = settings.model.quantity_0,
-      .min_position_0 = settings.model.min_position_0,
-      .max_position_0 = settings.model.max_position_0,
-      .publish_source = {},
+      .strategy_id = {},
   };
-  return algo::arbitrage::Factory::create(dispatcher, config_2, cache);
+  return algo::arbitrage::Factory::create(dispatcher, order_cache, config_2, settings.model.params);
 }
 }  // namespace
 
 // === IMPLEMENTATION ===
 
 Strategy::Strategy(roq::client::Dispatcher &dispatcher, Settings const &settings, Config const &config)
-    : dispatcher_{dispatcher}, strategy_{create_strategy(*this, settings, config, *this)} {
+    : dispatcher_{dispatcher}, strategy_{create_strategy(*this, settings, *this, config)} {
 }
 
 // client::Handler

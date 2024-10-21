@@ -16,7 +16,10 @@ namespace arbitrage {
 namespace {
 template <typename T>
 auto parse_enum(auto &value) {
-  return magic_enum::enum_cast<T>(value, magic_enum::case_insensitive).value();
+  auto result = magic_enum::enum_cast<T>(value, magic_enum::case_insensitive);
+  if (!result.has_value())
+    log::fatal(R"(Unexpected: value="{}")"sv, value);
+  return result.value();
 }
 
 template <typename R>

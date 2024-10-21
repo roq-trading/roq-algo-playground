@@ -7,11 +7,9 @@
 ## Live
 
 ```bash
-roq-algo-playground-arbitrage --simulate=false --model_threshold=5 --model_quantity_0=1 --model_min_position_0=-5 --model_max_position_0=5 \
+roq-algo-playground-arbitrage --simulate=false --model_params "max_age=10s;threshold=5;quantity_0=1;min_position_0=-5;max_position_0=5" \
   --name "trader" \
-  --accounts "A1,A1"
-  --exchanges "deribit,bybit" \
-  --symbols "BTC-PERPETUAL,BTCUSDT" \
+  --config_file "test.toml" \
   deribit.sock \
   bybit.sock
 ```
@@ -19,11 +17,9 @@ roq-algo-playground-arbitrage --simulate=false --model_threshold=5 --model_quant
 ## Simulate
 
 ```bash
-roq-algo-playground-arbitrage --simulate=true --model_threshold=5 --model_quantity_0=1 --model_min_position_0=-5 --model_max_position_0=5 \
+roq-algo-playground-arbitrage --simulate=true --model_params "max_age=10s;threshold=5;quantity_0=1;min_position_0=-5;max_position_0=5" \
   --name "trader" \
-  --accounts "A1,A1"
-  --exchanges "deribit,bybit" \
-  --symbols "BTC-PERPETUAL,BTCUSDT" \
+  --config_file "test.toml" \
   deribit-public.roq \
   bybit-public.roq
 ```

@@ -10,40 +10,9 @@
       "description": "strategy (arbitrage)"
     },
     {
-      "name": "market_data_source",
+      "name": "params",
       "type": "std/string",
-      "default": "market_by_price",
-      "description": "market data source"
-    },
-    {
-      "name": "max_age",
-      "type": "std/nanoseconds",
-      "default": "10s",
-      "description": "max market data age when trading status not supported by exchange"
-    },
-    {
-      "name": "threshold",
-      "type": "std/double",
-      "required": true,
-      "description": "price threshold"
-    },
-    {
-      "name": "quantity_0",
-      "type": "std/double",
-      "required": true,
-      "description": "trade quantity (first instrument, index=0)"
-    },
-    {
-      "name": "min_position_0",
-      "type": "std/double",
-      "required": true,
-      "description": "min position (first instrument, index=0)"
-    },
-    {
-      "name": "max_position_0",
-      "type": "std/double",
-      "required": true,
-      "description": "max position (first instrument, index=0)"
+      "description": "parameters (depends on strategy)"
     }
   ]
 }
