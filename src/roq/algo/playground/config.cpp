@@ -2,6 +2,8 @@
 
 #include "roq/algo/playground/config.hpp"
 
+#include <nameof.hpp>
+
 #include <toml++/toml.h>
 
 #include "roq/logging.hpp"
@@ -19,7 +21,7 @@ template <typename T>
 auto parse_enum(auto &value) {
   auto result = magic_enum::enum_cast<T>(value, magic_enum::case_insensitive);
   if (!result.has_value())
-    log::fatal(R"(Unexpected: value="{}")"sv, value);
+    log::fatal(R"(Unexpected: value="{}" ({}))"sv, value, nameof::nameof_full_type<T>());
   return result.value();
 }
 

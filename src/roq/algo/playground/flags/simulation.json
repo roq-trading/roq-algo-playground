@@ -28,10 +28,16 @@
       "description": "market data source"
     },
     {
-      "name": "output_type",
+      "name": "reporter_sample_freq",
+      "type": "std/nanoseconds",
+      "default": "60s",
+      "description": "reporter sample frequency"
+    },
+    {
+      "name": "reporter_output_type",
       "type": "std/string",
       "default": "text",
-      "description": "report output type"
+      "description": "reporter output type"
     }
   ]
 }

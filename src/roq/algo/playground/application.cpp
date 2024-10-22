@@ -4,6 +4,8 @@
 
 #include <magic_enum.hpp>
 
+#include <nameof.hpp>
+
 #include <cassert>
 #include <vector>
 
@@ -13,10 +15,10 @@
 
 #include "roq/algo/reporter/summary.hpp"
 
-#include "roq/algo/playground/settings.hpp"
+#include "roq/algo/playground/strategy.hpp"
 
 using namespace std::literals;
-using namespace std::chrono_literals;  // NOLINT
+using namespace std::chrono_literals;
 
 namespace roq {
 namespace algo {
@@ -29,10 +31,11 @@ template <typename T>
 auto parse_enum(auto &value) {
   auto result = magic_enum::enum_cast<T>(value, magic_enum::case_insensitive);
   if (!result.has_value())
-    log::fatal(R"(Unexpected: value="{}")"sv, value);
+    log::fatal(R"(Unexpected: value="{}" ({}))"sv, value, nameof::nameof_full_type<T>());
   return result.value();
 }
 
+// note! here we need a callback due to std::string/std::string_view and std::vector/std::span life-time issues
 template <typename Callback>
 void create_sources(auto &settings, auto &config, auto &params, Callback callback) {
   std::vector<client::Simulator2::Source> result;
@@ -84,9 +87,9 @@ int Application::main(roq::args::Parser const &args) {
   Config config{settings};
 
   if (std::size(params) < std::size(config.legs)) {
-    roq::log::warn("You must provide {} argument(s)! (Got {})"sv, std::size(config.legs), std::size(params));
-    roq::log::warn("  For simulation: paths to event-logs (the .roq files created by gateways)"sv);
-    roq::log::warn("  For live trading: paths to unix sockets (the .sock files created by gateways)"sv);
+    roq::log::error("You must provide at least {} argument(s)! (got {})"sv, std::size(config.legs), std::size(params));
+    roq::log::error("  For live trading: paths to unix sockets (the .sock files created by the gateways)"sv);
+    roq::log::error("  For simulation: paths to event-logs (the .roq files created by the gateways)"sv);
     roq::log::fatal("Unexpected"sv);
   }
 
@@ -99,11 +102,18 @@ int Application::main(roq::args::Parser const &args) {
   return EXIT_SUCCESS;
 }
 
+void Application::trading(Settings const &settings, Config const &config, std::span<std::string_view const> const &params) {
+  roq::client::Trader{settings, config, params}.dispatch<Strategy>(settings, config);
+}
+
 void Application::simulation(Settings const &settings, Config const &config, std::span<std::string_view const> const &params) {
+  auto matcher_type = parse_enum<algo::matcher::Factory::Type>(settings.simulation.matcher_type);
+  auto market_data_source = parse_enum<algo::MarketDataSource>(settings.simulation.market_data_source);
+  auto reporter_output_type = parse_enum<algo::reporter::OutputType>(settings.simulation.reporter_output_type);
+
   struct Factory final : public client::Simulator2::Factory {
-    explicit Factory(Settings const &settings)
-        : type_{parse_enum<decltype(type_)>(settings.simulation.matcher_type)},
-          market_data_source_{parse_enum<decltype(market_data_source_)>(settings.simulation.market_data_source)} {}
+    Factory(algo::matcher::Factory::Type matcher_type, algo::MarketDataSource market_data_source)
+        : matcher_type_{matcher_type}, market_data_source_{market_data_source} {}
 
     std::unique_ptr<algo::matcher::Handler> create_matcher(
         algo::matcher::Dispatcher &dispatcher,
@@ -116,33 +126,28 @@ void Application::simulation(Settings const &settings, Config const &config, std
           .symbol = symbol,
           .market_data_source = market_data_source_,
       };
-      return algo::matcher::Factory::create(type_, dispatcher, config, order_cache);
+      return algo::matcher::Factory::create(matcher_type_, dispatcher, config, order_cache);
     }
 
    private:
-    algo::matcher::Factory::Type const type_;
+    algo::matcher::Factory::Type const matcher_type_;
     algo::MarketDataSource const market_data_source_;
-  } factory{settings};
+  } factory{matcher_type, market_data_source};
 
   auto reporter = [&]() {
     auto config = algo::reporter::Summary::Config{
-        .market_data_source = algo::MarketDataSource::TOP_OF_BOOK,
-        .sample_frequency = 1min,
+        .market_data_source = market_data_source,
+        .sample_frequency = settings.simulation.reporter_sample_freq,
     };
     return algo::reporter::Summary::create(config);
   }();
 
-  auto callback = [&](auto &sources) { roq::client::Simulator2{settings, config, factory, *reporter, sources}.dispatch<value_type>(settings, config); };
+  auto dispatch_helper = [&](auto &sources) {  // note! callback due to life-time issues
+    roq::client::Simulator2{settings, config, factory, *reporter, sources}.dispatch<Strategy>(settings, config);
+  };
+  create_sources(settings, config, params, dispatch_helper);
 
-  create_sources(settings, config, params, callback);
-
-  auto output_type = parse_enum<algo::reporter::OutputType>(settings.simulation.output_type);
-
-  (*reporter).print(output_type);
-}
-
-void Application::trading(Settings const &settings, Config const &config, std::span<std::string_view const> const &params) {
-  roq::client::Trader{settings, config, params}.dispatch<value_type>(settings, config);
+  (*reporter).print(reporter_output_type);
 }
 
 }  // namespace playground

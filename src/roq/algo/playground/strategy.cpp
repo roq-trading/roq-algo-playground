@@ -2,6 +2,10 @@
 
 #include "roq/algo/playground/strategy.hpp"
 
+#include <magic_enum.hpp>
+
+#include <nameof.hpp>
+
 #include "roq/logging.hpp"
 
 #include "roq/utils/safe_cast.hpp"
@@ -16,10 +20,6 @@ namespace roq {
 namespace algo {
 namespace playground {
 
-// TODO
-// - routing by symbol
-// - cache orders
-
 // === HELPERS ===
 
 namespace {
@@ -27,7 +27,7 @@ template <typename T>
 auto parse_enum(auto &value) {
   auto result = magic_enum::enum_cast<T>(value, magic_enum::case_insensitive);
   if (!result.has_value())
-    log::fatal(R"(Unexpected: value="{}")"sv, value);
+    log::fatal(R"(Unexpected: value="{}")"sv, value, nameof::nameof_full_type<T>());
   return result.value();
 }
 
