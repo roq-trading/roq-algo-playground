@@ -44,7 +44,7 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &order_cache, auto &
     };
     legs.emplace_back(std::move(leg));
   }
-  auto config_2 = algo::arbitrage::Config{
+  auto config_2 = algo::strategy::Config{
       .legs = legs,
       .strategy_id = {},
   };
