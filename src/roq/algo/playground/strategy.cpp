@@ -1,6 +1,6 @@
 /* Copyright (c) 2017-2024, Hans Erik Thrane */
 
-#include "roq/arbitrage/strategy.hpp"
+#include "roq/algo/playground/strategy.hpp"
 
 #include "roq/logging.hpp"
 
@@ -8,12 +8,13 @@
 
 #include "roq/algo/strategy/factory.hpp"
 
-#include "roq/arbitrage/flags/flags.hpp"
+#include "roq/algo/playground/flags/flags.hpp"
 
 using namespace std::literals;
 
 namespace roq {
-namespace arbitrage {
+namespace algo {
+namespace playground {
 
 // TODO
 // - routing by symbol
@@ -275,5 +276,6 @@ uint64_t Strategy::get_next_trade_id() {
   return ++next_trade_id_;
 }
 
-}  // namespace arbitrage
+}  // namespace playground
+}  // namespace algo
 }  // namespace roq

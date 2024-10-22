@@ -63,7 +63,7 @@ include_directories(
 
 # sub-projects
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/roq/arbitrage)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/roq/algo/playground)
 
 # test
 

@@ -1,6 +1,6 @@
 /* Copyright (c) 2017-2024, Hans Erik Thrane */
 
-#include "roq/arbitrage/config.hpp"
+#include "roq/algo/playground/config.hpp"
 
 #include <toml++/toml.h>
 
@@ -9,7 +9,8 @@
 using namespace std::literals;
 
 namespace roq {
-namespace arbitrage {
+namespace algo {
+namespace playground {
 
 // === HELPERS ===
 
@@ -151,5 +152,6 @@ void Config::dispatch(Handler &handler) const {
   }
 }
 
-}  // namespace arbitrage
+}  // namespace playground
+}  // namespace algo
 }  // namespace roq

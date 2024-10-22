@@ -16,10 +16,11 @@
 
 #include "roq/client/config.hpp"
 
-#include "roq/arbitrage/settings.hpp"
+#include "roq/algo/playground/settings.hpp"
 
 namespace roq {
-namespace arbitrage {
+namespace algo {
+namespace playground {
 
 struct Config final : public roq::client::Config {
   explicit Config(Settings const &);
@@ -47,13 +48,14 @@ struct Config final : public roq::client::Config {
   std::vector<Leg> const legs;
 };
 
-}  // namespace arbitrage
+}  // namespace playground
+}  // namespace algo
 }  // namespace roq
 
 template <>
-struct fmt::formatter<roq::arbitrage::Config::Leg> {
+struct fmt::formatter<roq::algo::playground::Config::Leg> {
   constexpr auto parse(format_parse_context &context) { return std::begin(context); }
-  auto format(roq::arbitrage::Config::Leg const &value, format_context &context) const {
+  auto format(roq::algo::playground::Config::Leg const &value, format_context &context) const {
     using namespace std::literals;
     return fmt::format_to(
         context.out(),
@@ -77,9 +79,9 @@ struct fmt::formatter<roq::arbitrage::Config::Leg> {
 };
 
 template <>
-struct fmt::formatter<roq::arbitrage::Config> {
+struct fmt::formatter<roq::algo::playground::Config> {
   constexpr auto parse(format_parse_context &context) { return std::begin(context); }
-  auto format(roq::arbitrage::Config const &value, format_context &context) const {
+  auto format(roq::algo::playground::Config const &value, format_context &context) const {
     using namespace std::literals;
     return fmt::format_to(
         context.out(),

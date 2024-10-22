@@ -20,7 +20,7 @@ else
   PREFIX=
 fi
 
-$PREFIX "./roq-algo-playground-arbitrage" \
+$PREFIX "./roq-algo-playground" \
   --name "$NAME" \
   --config_file "$CONFIG_FILE" \
   $@

@@ -1,4 +1,4 @@
-set(TARGET_NAME ${PROJECT_NAME}-arbitrage-flags)
+set(TARGET_NAME ${PROJECT_NAME}-flags)
 
 include(RoqAutogen)
 

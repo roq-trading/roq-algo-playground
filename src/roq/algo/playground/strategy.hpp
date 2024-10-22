@@ -13,11 +13,12 @@
 
 #include "roq/client.hpp"
 
-#include "roq/arbitrage/config.hpp"
-#include "roq/arbitrage/settings.hpp"
+#include "roq/algo/playground/config.hpp"
+#include "roq/algo/playground/settings.hpp"
 
 namespace roq {
-namespace arbitrage {
+namespace algo {
+namespace playground {
 
 struct Strategy final : public client::Handler, public algo::strategy::Dispatcher, public algo::OrderCache {
   Strategy(roq::client::Dispatcher &, Settings const &, Config const &);
@@ -110,5 +111,6 @@ struct Strategy final : public client::Handler, public algo::strategy::Dispatche
   uint64_t next_trade_id_ = {};
 };
 
-}  // namespace arbitrage
+}  // namespace playground
+}  // namespace algo
 }  // namespace roq

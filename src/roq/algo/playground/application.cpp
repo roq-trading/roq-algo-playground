@@ -1,6 +1,6 @@
 /* Copyright (c) 2017-2024, Hans Erik Thrane */
 
-#include "roq/arbitrage/application.hpp"
+#include "roq/algo/playground/application.hpp"
 
 #include <magic_enum.hpp>
 
@@ -13,13 +13,14 @@
 
 #include "roq/algo/reporter/summary.hpp"
 
-#include "roq/arbitrage/settings.hpp"
+#include "roq/algo/playground/settings.hpp"
 
 using namespace std::literals;
 using namespace std::chrono_literals;  // NOLINT
 
 namespace roq {
-namespace arbitrage {
+namespace algo {
+namespace playground {
 
 // === HELPERS ===
 
@@ -144,5 +145,6 @@ void Application::trading(Settings const &settings, Config const &config, std::s
   roq::client::Trader{settings, config, params}.dispatch<value_type>(settings, config);
 }
 
-}  // namespace arbitrage
+}  // namespace playground
+}  // namespace algo
 }  // namespace roq
