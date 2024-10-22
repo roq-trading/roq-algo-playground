@@ -6,7 +6,7 @@
 
 #include "roq/utils/safe_cast.hpp"
 
-#include "roq/algo/arbitrage/factory.hpp"
+#include "roq/algo/strategy/factory.hpp"
 
 #include "roq/arbitrage/flags/flags.hpp"
 
@@ -48,7 +48,7 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &order_cache, auto &
       .legs = legs,
       .strategy_id = {},
   };
-  return algo::arbitrage::Factory::create(dispatcher, order_cache, config_2, settings.model.params);
+  return algo::strategy::Factory::create(config.type, dispatcher, order_cache, config_2, settings.parameters);
 }
 }  // namespace
 

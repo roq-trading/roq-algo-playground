@@ -1,3 +1,5 @@
+type="ARBITRAGE"
+
 [[legs]]
   source=0
   account="A1"

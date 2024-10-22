@@ -12,6 +12,8 @@
 #include "roq/position_effect.hpp"
 #include "roq/time_in_force.hpp"
 
+#include "roq/algo/strategy/type.hpp"
+
 #include "roq/client/config.hpp"
 
 #include "roq/arbitrage/settings.hpp"
@@ -32,6 +34,7 @@ struct Config final : public roq::client::Config {
   Settings const &settings_;
 
  public:
+  algo::strategy::Type const type;
   struct Leg final {
     uint8_t source = {};
     std::string account;
@@ -41,7 +44,7 @@ struct Config final : public roq::client::Config {
     MarginMode margin_mode = {};
     TimeInForce time_in_force = {};
   };
-  std::vector<Leg> legs;
+  std::vector<Leg> const legs;
 };
 
 }  // namespace arbitrage
@@ -81,8 +84,10 @@ struct fmt::formatter<roq::arbitrage::Config> {
     return fmt::format_to(
         context.out(),
         R"({{)"
+        R"(type={}, )"
         R"(legs=[{}])"
         R"(}})"sv,
+        value.type,
         fmt::join(value.legs, ", "sv));
   }
 };

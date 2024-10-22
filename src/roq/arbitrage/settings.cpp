@@ -6,7 +6,7 @@ namespace roq {
 namespace arbitrage {
 
 Settings::Settings(roq::args::Parser const &args)
-    : roq::client::flags::Settings{args}, flags::Flags{flags::Flags::create()}, model{flags::Model::create()}, simulation{flags::Simulation::create()} {
+    : roq::client::flags::Settings{args}, flags::Flags{flags::Flags::create()}, simulation{flags::Simulation::create()} {
 }
 
 }  // namespace arbitrage

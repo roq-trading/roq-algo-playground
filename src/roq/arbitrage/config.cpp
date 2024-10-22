@@ -74,17 +74,46 @@ auto parse_legs(auto &array) {
   return result;
 }
 
+// XXX FIXME TODO we're parsing TWO times !!!
+
 template <typename R>
-auto create(auto &config_file) {
+auto create_type(auto &config_file) {
   using result_type = std::remove_cvref<R>::type;
-  result_type result;
+  result_type result = {};
   auto root = toml::parse_file(config_file);
   enum class Key {
+    TYPE,
     LEGS,
   };
   for (auto &[key, value] : root) {
     auto key_2 = parse_enum<Key>(key);
     switch (key_2) {
+      case Key::TYPE: {
+        auto value_2 = value.template value<std::string_view>().value();
+        result = parse_enum<result_type>(value_2);
+        break;
+      }
+      case Key::LEGS:
+        break;
+    }
+  }
+  return result;
+}
+
+template <typename R>
+auto create_legs(auto &config_file) {
+  using result_type = std::remove_cvref<R>::type;
+  result_type result;
+  auto root = toml::parse_file(config_file);
+  enum class Key {
+    TYPE,
+    LEGS,
+  };
+  for (auto &[key, value] : root) {
+    auto key_2 = parse_enum<Key>(key);
+    switch (key_2) {
+      case Key::TYPE:
+        break;
       case Key::LEGS:
         result = parse_legs<R>(*value.as_array());
         break;
@@ -96,7 +125,8 @@ auto create(auto &config_file) {
 
 // === IMPLEMENTATION ===
 
-Config::Config(Settings const &settings) : settings_{settings}, legs{create<decltype(legs)>(settings.config_file)} {
+Config::Config(Settings const &settings)
+    : settings_{settings}, type{create_type<decltype(type)>(settings.config_file)}, legs{create_legs<decltype(legs)>(settings.config_file)} {
   log::info("config={}"sv, *this);
 }
 

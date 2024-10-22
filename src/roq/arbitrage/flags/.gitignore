@@ -1,8 +1,6 @@
 !!! THIS FILE HAS BEEN AUTO-GENERATED !!!
 roq-algo-playground-arbitrage-flags
 flags.hpp
-model.hpp
 simulation.hpp
 flags.cpp
-model.cpp
 simulation.cpp

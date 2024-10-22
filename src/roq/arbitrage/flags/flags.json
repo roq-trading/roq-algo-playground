@@ -10,10 +10,9 @@
       "description": "config file (path)"
     },
     {
-      "name": "max_age",
-      "type": "std/nanoseconds",
-      "default": "10s",
-      "description": "max market data age when trading status not supported by exchange"
+      "name": "parameters",
+      "type": "std/string",
+      "description": "strategy parameters (depends on strategy type as defined in the config file)"
     },
     {
       "name": "simulate",

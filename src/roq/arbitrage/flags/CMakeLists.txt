@@ -2,7 +2,7 @@ set(TARGET_NAME ${PROJECT_NAME}-arbitrage-flags)
 
 include(RoqAutogen)
 
-set(AUTOGEN_SCHEMAS flags.json model.json simulation.json)
+set(AUTOGEN_SCHEMAS flags.json simulation.json)
 
 roq_autogen_hpp(
   OUTPUT
