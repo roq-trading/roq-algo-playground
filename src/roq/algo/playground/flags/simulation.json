@@ -38,6 +38,11 @@
       "type": "std/string",
       "default": "text",
       "description": "reporter output type"
+    },
+    {
+      "name": "reporter_label",
+      "type": "std/string",
+      "description": "reporter label"
     }
   ]
 }

@@ -147,7 +147,7 @@ void Application::simulation(Settings const &settings, Config const &config, std
   };
   create_sources(settings, config, params, dispatch_helper);
 
-  (*reporter).print(reporter_output_type);
+  (*reporter).print(reporter_output_type, settings.simulation.reporter_label);
 }
 
 }  // namespace playground
