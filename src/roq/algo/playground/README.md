@@ -47,69 +47,146 @@ source: 0
           total_count: 1281
       order_management
         order_ack
-          accepted_count: 136
+          accepted_count: 20
           rejected_count: 0
         order_update
-          buy_count: 70
-          sell_count: 68
-          total_count: 138
+          buy_count: 10
+          sell_count: 10
+          total_count: 20
         trade_update
           fills
-            buy_count: 70
-            sell_count: 66
-            total_count: 136
-            buy_volume: 70
-            sell_volume: 66
-            total_volume: 136
+            buy_count: 10
+            sell_count: 10
+            total_count: 20
+            buy_volume: 10
+            sell_volume: 10
+            total_volume: 20
         position_update
-          total_count: 136
+          total_count: 20
           position_min: nan
-          position_max: 5
+          position_max: 1
         history
           sample_period_utc: 1729515420000000000ns
-            price: 68175.25
+            best_bid_price: 68175
+            best_ask_price: 68175.5
             position: 0
-            profit: 0
+            realized_profit: 0
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 0
+            sell_volume: 0
+            total_volume: 0
           sample_period_utc: 1729515480000000000ns
-            price: 68201.75
-            position: -6
-            profit: -154.5
+            best_bid_price: 68201.5
+            best_ask_price: 68202
+            position: -2
+            realized_profit: 0
+            unrealized_profit: -42
+            average_price: 68181
+            mark_price: 68202
+            buy_volume: 0
+            sell_volume: 2
+            total_volume: 2
           sample_period_utc: 1729515540000000000ns
-            price: 68208.25
-            position: -6
-            profit: -193.5
+            best_bid_price: 68208
+            best_ask_price: 68208.5
+            position: -2
+            realized_profit: 0
+            unrealized_profit: -55
+            average_price: 68181
+            mark_price: 68208.5
+            buy_volume: 0
+            sell_volume: 2
+            total_volume: 2
           sample_period_utc: 1729515600000000000ns
-            price: 68165.25
-            position: -6
-            profit: 64.5
+            best_bid_price: 68165
+            best_ask_price: 68165.5
+            position: -2
+            realized_profit: 0
+            unrealized_profit: 31
+            average_price: 68181
+            mark_price: 68165.5
+            buy_volume: 0
+            sell_volume: 2
+            total_volume: 2
           sample_period_utc: 1729515660000000000ns
-            price: 68177.25
-            position: 4
-            profit: 190
-          sample_period_utc: 1729515720000000000ns
-            price: 68178.75
-            position: 4
-            profit: 311
-          sample_period_utc: 1729515780000000000ns
-            price: 68225.75
-            position: 4
-            profit: 494
-          sample_period_utc: 1729515840000000000ns
-            price: 68221.25
-            position: 4
-            profit: 476
-          sample_period_utc: 1729515900000000000ns
-            price: 68179.25
+            best_bid_price: 68177
+            best_ask_price: 68177.5
             position: 0
-            profit: 631.5
+            realized_profit: 47
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 2
+            sell_volume: 2
+            total_volume: 4
+          sample_period_utc: 1729515720000000000ns
+            best_bid_price: 68178.5
+            best_ask_price: 68179
+            position: 0
+            realized_profit: 70
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 6
+            sell_volume: 6
+            total_volume: 12
+          sample_period_utc: 1729515780000000000ns
+            best_bid_price: 68225.5
+            best_ask_price: 68226
+            position: 0
+            realized_profit: 70
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 6
+            sell_volume: 6
+            total_volume: 12
+          sample_period_utc: 1729515840000000000ns
+            best_bid_price: 68221
+            best_ask_price: 68221.5
+            position: 0
+            realized_profit: 70
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 6
+            sell_volume: 6
+            total_volume: 12
+          sample_period_utc: 1729515900000000000ns
+            best_bid_price: 68179
+            best_ask_price: 68179.5
+            position: -2
+            realized_profit: 70
+            unrealized_profit: 69
+            average_price: 68214
+            mark_price: 68179.5
+            buy_volume: 6
+            sell_volume: 8
+            total_volume: 14
           sample_period_utc: 1729515960000000000ns
-            price: 68152.25
-            position: -6
-            profit: 602
+            best_bid_price: 68152
+            best_ask_price: 68152.5
+            position: 0
+            realized_profit: 140
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 8
+            sell_volume: 8
+            total_volume: 16
           sample_period_utc: 1729516020000000000ns
-            price: 68096.25
-            position: 4
-            profit: 917.5
+            best_bid_price: 68096
+            best_ask_price: 68096.5
+            position: 0
+            realized_profit: 256
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 10
+            sell_volume: 10
+            total_volume: 20
 source: 1
   exchange: bybit
     symbol: BTCUSD
@@ -130,67 +207,144 @@ source: 1
           total_count: 177
       order_management
         order_ack
-          accepted_count: 136
+          accepted_count: 20
           rejected_count: 0
         order_update
-          buy_count: 66
-          sell_count: 71
-          total_count: 137
+          buy_count: 10
+          sell_count: 10
+          total_count: 20
         trade_update
           fills
-            buy_count: 66
-            sell_count: 70
-            total_count: 136
-            buy_volume: 66
-            sell_volume: 70
-            total_volume: 136
+            buy_count: 10
+            sell_count: 10
+            total_count: 20
+            buy_volume: 10
+            sell_volume: 10
+            total_volume: 20
         position_update
-          total_count: 136
+          total_count: 20
           position_min: nan
-          position_max: 5
+          position_max: 1
         history
           sample_period_utc: 1729515420000000000ns
-            price: 68170.25
+            best_bid_price: 68170
+            best_ask_price: 68170.5
             position: 0
-            profit: 0
+            realized_profit: 0
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 0
+            sell_volume: 0
+            total_volume: 0
           sample_period_utc: 1729515480000000000ns
-            price: 68193.75
-            position: 6
-            profit: 139.5
+            best_bid_price: 68193.5
+            best_ask_price: 68194
+            position: 2
+            realized_profit: 0
+            unrealized_profit: 46
+            average_price: 68170.5
+            mark_price: 68193.5
+            buy_volume: 2
+            sell_volume: 0
+            total_volume: 2
           sample_period_utc: 1729515540000000000ns
-            price: 68194.75
-            position: 6
-            profit: 145.5
+            best_bid_price: 68194.5
+            best_ask_price: 68195
+            position: 2
+            realized_profit: 0
+            unrealized_profit: 48
+            average_price: 68170.5
+            mark_price: 68194.5
+            buy_volume: 2
+            sell_volume: 0
+            total_volume: 2
           sample_period_utc: 1729515600000000000ns
-            price: 68167.25
-            position: 6
-            profit: -19.5
+            best_bid_price: 68167
+            best_ask_price: 68167.5
+            position: 2
+            realized_profit: 0
+            unrealized_profit: -7
+            average_price: 68170.5
+            mark_price: 68167
+            buy_volume: 2
+            sell_volume: 0
+            total_volume: 2
           sample_period_utc: 1729515660000000000ns
-            price: 68172.25
-            position: -4
-            profit: -52
-          sample_period_utc: 1729515720000000000ns
-            price: 68181.25
-            position: -4
-            profit: 119.5
-          sample_period_utc: 1729515780000000000ns
-            price: 68225.75
-            position: -4
-            profit: 128.5
-          sample_period_utc: 1729515840000000000ns
-            price: 68222.25
-            position: -4
-            profit: 142.5
-          sample_period_utc: 1729515900000000000ns
-            price: 68176.25
+            best_bid_price: 68172
+            best_ask_price: 68172.5
             position: 0
-            profit: 201
+            realized_profit: -3
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 2
+            sell_volume: 2
+            total_volume: 4
+          sample_period_utc: 1729515720000000000ns
+            best_bid_price: 68181
+            best_ask_price: 68181.5
+            position: 0
+            realized_profit: 60
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 6
+            sell_volume: 6
+            total_volume: 12
+          sample_period_utc: 1729515780000000000ns
+            best_bid_price: 68225.5
+            best_ask_price: 68226
+            position: 0
+            realized_profit: 60
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 6
+            sell_volume: 6
+            total_volume: 12
+          sample_period_utc: 1729515840000000000ns
+            best_bid_price: 68222
+            best_ask_price: 68222.5
+            position: 0
+            realized_profit: 60
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 6
+            sell_volume: 6
+            total_volume: 12
+          sample_period_utc: 1729515900000000000ns
+            best_bid_price: 68176
+            best_ask_price: 68176.5
+            position: 2
+            realized_profit: 60
+            unrealized_profit: -31
+            average_price: 68191.5
+            mark_price: 68176
+            buy_volume: 8
+            sell_volume: 6
+            total_volume: 14
           sample_period_utc: 1729515960000000000ns
-            price: 68149.25
-            position: 6
-            profit: 299.5
+            best_bid_price: 68149
+            best_ask_price: 68149.5
+            position: 0
+            realized_profit: 58
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 8
+            sell_volume: 8
+            total_volume: 16
           sample_period_utc: 1729516020000000000ns
-            price: 68103.25
-            position: -4
-            profit: 210
+            best_bid_price: 68103
+            best_ask_price: 68103.5
+            position: 0
+            realized_profit: 1
+            unrealized_profit: 0
+            average_price: nan
+            mark_price: nan
+            buy_volume: 10
+            sell_volume: 10
+            total_volume: 20
 ```
