@@ -72,7 +72,7 @@ source: 0
             position: 0
             realized_profit: 0
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 0
             sell_volume: 0
@@ -83,7 +83,7 @@ source: 0
             position: -2
             realized_profit: 0
             unrealized_profit: -42
-            average_price: 68181
+            average_cost_price: 68181
             mark_price: 68202
             buy_volume: 0
             sell_volume: 2
@@ -94,7 +94,7 @@ source: 0
             position: -2
             realized_profit: 0
             unrealized_profit: -55
-            average_price: 68181
+            average_cost_price: 68181
             mark_price: 68208.5
             buy_volume: 0
             sell_volume: 2
@@ -105,7 +105,7 @@ source: 0
             position: -2
             realized_profit: 0
             unrealized_profit: 31
-            average_price: 68181
+            average_cost_price: 68181
             mark_price: 68165.5
             buy_volume: 0
             sell_volume: 2
@@ -116,7 +116,7 @@ source: 0
             position: 0
             realized_profit: 47
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 2
             sell_volume: 2
@@ -127,7 +127,7 @@ source: 0
             position: 0
             realized_profit: 70
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 6
             sell_volume: 6
@@ -138,7 +138,7 @@ source: 0
             position: 0
             realized_profit: 70
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 6
             sell_volume: 6
@@ -149,7 +149,7 @@ source: 0
             position: 0
             realized_profit: 70
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 6
             sell_volume: 6
@@ -160,7 +160,7 @@ source: 0
             position: -2
             realized_profit: 70
             unrealized_profit: 69
-            average_price: 68214
+            average_cost_price: 68214
             mark_price: 68179.5
             buy_volume: 6
             sell_volume: 8
@@ -171,7 +171,7 @@ source: 0
             position: 0
             realized_profit: 140
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 8
             sell_volume: 8
@@ -182,7 +182,7 @@ source: 0
             position: 0
             realized_profit: 256
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 10
             sell_volume: 10
@@ -232,7 +232,7 @@ source: 1
             position: 0
             realized_profit: 0
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 0
             sell_volume: 0
@@ -243,7 +243,7 @@ source: 1
             position: 2
             realized_profit: 0
             unrealized_profit: 46
-            average_price: 68170.5
+            average_cost_price: 68170.5
             mark_price: 68193.5
             buy_volume: 2
             sell_volume: 0
@@ -254,7 +254,7 @@ source: 1
             position: 2
             realized_profit: 0
             unrealized_profit: 48
-            average_price: 68170.5
+            average_cost_price: 68170.5
             mark_price: 68194.5
             buy_volume: 2
             sell_volume: 0
@@ -265,7 +265,7 @@ source: 1
             position: 2
             realized_profit: 0
             unrealized_profit: -7
-            average_price: 68170.5
+            average_cost_price: 68170.5
             mark_price: 68167
             buy_volume: 2
             sell_volume: 0
@@ -276,7 +276,7 @@ source: 1
             position: 0
             realized_profit: -3
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 2
             sell_volume: 2
@@ -287,7 +287,7 @@ source: 1
             position: 0
             realized_profit: 60
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 6
             sell_volume: 6
@@ -298,7 +298,7 @@ source: 1
             position: 0
             realized_profit: 60
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 6
             sell_volume: 6
@@ -309,7 +309,7 @@ source: 1
             position: 0
             realized_profit: 60
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 6
             sell_volume: 6
@@ -320,7 +320,7 @@ source: 1
             position: 2
             realized_profit: 60
             unrealized_profit: -31
-            average_price: 68191.5
+            average_cost_price: 68191.5
             mark_price: 68176
             buy_volume: 8
             sell_volume: 6
@@ -331,7 +331,7 @@ source: 1
             position: 0
             realized_profit: 58
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 8
             sell_volume: 8
@@ -342,7 +342,7 @@ source: 1
             position: 0
             realized_profit: 1
             unrealized_profit: 0
-            average_price: nan
+            average_cost_price: nan
             mark_price: nan
             buy_volume: 10
             sell_volume: 10
