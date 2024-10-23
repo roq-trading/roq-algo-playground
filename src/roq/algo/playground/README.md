@@ -71,124 +71,113 @@ source: 0
           sample_period_utc: 1729515420000000000ns
             best_bid_price: 68175
             best_ask_price: 68175.5
-            position: 0
-            realized_profit: 0
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 0
             sell_volume: 0
-            total_volume: 0
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 0
           sample_period_utc: 1729515480000000000ns
             best_bid_price: 68201.5
             best_ask_price: 68202
-            position: -2
-            realized_profit: 0
-            unrealized_profit: -42
-            average_cost_price: 68181
-            mark_price: 68202
             buy_volume: 0
             sell_volume: 2
-            total_volume: 2
+            position: -2
+            average_price: 68181
+            mark_price: 68202
+            unrealized_profit: -42
+            realized_profit: 0
           sample_period_utc: 1729515540000000000ns
             best_bid_price: 68208
             best_ask_price: 68208.5
-            position: -2
-            realized_profit: 0
-            unrealized_profit: -55
-            average_cost_price: 68181
-            mark_price: 68208.5
             buy_volume: 0
             sell_volume: 2
-            total_volume: 2
+            position: -2
+            average_price: 68181
+            mark_price: 68208.5
+            unrealized_profit: -55
+            realized_profit: 0
           sample_period_utc: 1729515600000000000ns
             best_bid_price: 68165
             best_ask_price: 68165.5
-            position: -2
-            realized_profit: 0
-            unrealized_profit: 31
-            average_cost_price: 68181
-            mark_price: 68165.5
             buy_volume: 0
             sell_volume: 2
-            total_volume: 2
+            position: -2
+            average_price: 68181
+            mark_price: 68165.5
+            unrealized_profit: 31
+            realized_profit: 0
           sample_period_utc: 1729515660000000000ns
             best_bid_price: 68177
             best_ask_price: 68177.5
-            position: 0
-            realized_profit: 47
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 2
             sell_volume: 2
-            total_volume: 4
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 47
           sample_period_utc: 1729515720000000000ns
             best_bid_price: 68178.5
             best_ask_price: 68179
-            position: 0
-            realized_profit: 70
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 6
             sell_volume: 6
-            total_volume: 12
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 70
           sample_period_utc: 1729515780000000000ns
             best_bid_price: 68225.5
             best_ask_price: 68226
-            position: 0
-            realized_profit: 70
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 6
             sell_volume: 6
-            total_volume: 12
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 70
           sample_period_utc: 1729515840000000000ns
             best_bid_price: 68221
             best_ask_price: 68221.5
-            position: 0
-            realized_profit: 70
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 6
             sell_volume: 6
-            total_volume: 12
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 70
           sample_period_utc: 1729515900000000000ns
             best_bid_price: 68179
             best_ask_price: 68179.5
-            position: -2
-            realized_profit: 70
-            unrealized_profit: 69
-            average_cost_price: 68214
-            mark_price: 68179.5
             buy_volume: 6
             sell_volume: 8
-            total_volume: 14
+            position: -2
+            average_price: 68214
+            mark_price: 68179.5
+            unrealized_profit: 69
+            realized_profit: 70
           sample_period_utc: 1729515960000000000ns
             best_bid_price: 68152
             best_ask_price: 68152.5
-            position: 0
-            realized_profit: 140
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 8
             sell_volume: 8
-            total_volume: 16
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 140
           sample_period_utc: 1729516020000000000ns
             best_bid_price: 68096
             best_ask_price: 68096.5
-            position: 0
-            realized_profit: 256
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 10
             sell_volume: 10
-            total_volume: 20
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 256
 source: 1
   exchange: bybit
     symbol: BTCUSD
@@ -231,150 +220,139 @@ source: 1
           sample_period_utc: 1729515420000000000ns
             best_bid_price: 68170
             best_ask_price: 68170.5
-            position: 0
-            realized_profit: 0
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 0
             sell_volume: 0
-            total_volume: 0
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 0
           sample_period_utc: 1729515480000000000ns
             best_bid_price: 68193.5
             best_ask_price: 68194
-            position: 2
-            realized_profit: 0
-            unrealized_profit: 46
-            average_cost_price: 68170.5
-            mark_price: 68193.5
             buy_volume: 2
             sell_volume: 0
-            total_volume: 2
+            position: 2
+            average_price: 68170.5
+            mark_price: 68193.5
+            unrealized_profit: 46
+            realized_profit: 0
           sample_period_utc: 1729515540000000000ns
             best_bid_price: 68194.5
             best_ask_price: 68195
-            position: 2
-            realized_profit: 0
-            unrealized_profit: 48
-            average_cost_price: 68170.5
-            mark_price: 68194.5
             buy_volume: 2
             sell_volume: 0
-            total_volume: 2
+            position: 2
+            average_price: 68170.5
+            mark_price: 68194.5
+            unrealized_profit: 48
+            realized_profit: 0
           sample_period_utc: 1729515600000000000ns
             best_bid_price: 68167
             best_ask_price: 68167.5
-            position: 2
-            realized_profit: 0
-            unrealized_profit: -7
-            average_cost_price: 68170.5
-            mark_price: 68167
             buy_volume: 2
             sell_volume: 0
-            total_volume: 2
+            position: 2
+            average_price: 68170.5
+            mark_price: 68167
+            unrealized_profit: -7
+            realized_profit: 0
           sample_period_utc: 1729515660000000000ns
             best_bid_price: 68172
             best_ask_price: 68172.5
-            position: 0
-            realized_profit: -3
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 2
             sell_volume: 2
-            total_volume: 4
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: -3
           sample_period_utc: 1729515720000000000ns
             best_bid_price: 68181
             best_ask_price: 68181.5
-            position: 0
-            realized_profit: 60
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 6
             sell_volume: 6
-            total_volume: 12
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 60
           sample_period_utc: 1729515780000000000ns
             best_bid_price: 68225.5
             best_ask_price: 68226
-            position: 0
-            realized_profit: 60
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 6
             sell_volume: 6
-            total_volume: 12
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 60
           sample_period_utc: 1729515840000000000ns
             best_bid_price: 68222
             best_ask_price: 68222.5
-            position: 0
-            realized_profit: 60
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 6
             sell_volume: 6
-            total_volume: 12
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 60
           sample_period_utc: 1729515900000000000ns
             best_bid_price: 68176
             best_ask_price: 68176.5
-            position: 2
-            realized_profit: 60
-            unrealized_profit: -31
-            average_cost_price: 68191.5
-            mark_price: 68176
             buy_volume: 8
             sell_volume: 6
-            total_volume: 14
+            position: 2
+            average_price: 68191.5
+            mark_price: 68176
+            unrealized_profit: -31
+            realized_profit: 60
           sample_period_utc: 1729515960000000000ns
             best_bid_price: 68149
             best_ask_price: 68149.5
-            position: 0
-            realized_profit: 58
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 8
             sell_volume: 8
-            total_volume: 16
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 58
           sample_period_utc: 1729516020000000000ns
             best_bid_price: 68103
             best_ask_price: 68103.5
-            position: 0
-            realized_profit: 1
-            unrealized_profit: 0
-            average_cost_price: nan
-            mark_price: nan
             buy_volume: 10
             sell_volume: 10
-            total_volume: 20
+            position: 0
+            average_price: nan
+            mark_price: nan
+            unrealized_profit: 0
+            realized_profit: 1
 ```
 
 Using `--simulation_reporter_output_type=CSV` and `--simulation_reporter_label=history`
 
 ```csv
-source,exchange,symbol,datetime,best_bid_price,best_ask_price,position,realized_profit,unrealized_profit,average_cost_price,mark_price,buy_volume,sell_volume,total_volume
-0,"deribit","BTC-PERPETUAL",1729515420,68175,68175.5,0,0,0,nan,nan,0,0,0
-0,"deribit","BTC-PERPETUAL",1729515480,68201.5,68202,-2,0,-42,68181,68202,0,2,2
-0,"deribit","BTC-PERPETUAL",1729515540,68208,68208.5,-2,0,-55,68181,68208.5,0,2,2
-0,"deribit","BTC-PERPETUAL",1729515600,68165,68165.5,-2,0,31,68181,68165.5,0,2,2
-0,"deribit","BTC-PERPETUAL",1729515660,68177,68177.5,0,47,0,nan,nan,2,2,4
-0,"deribit","BTC-PERPETUAL",1729515720,68178.5,68179,0,70,0,nan,nan,6,6,12
-0,"deribit","BTC-PERPETUAL",1729515780,68225.5,68226,0,70,0,nan,nan,6,6,12
-0,"deribit","BTC-PERPETUAL",1729515840,68221,68221.5,0,70,0,nan,nan,6,6,12
-0,"deribit","BTC-PERPETUAL",1729515900,68179,68179.5,-2,70,69,68214,68179.5,6,8,14
-0,"deribit","BTC-PERPETUAL",1729515960,68152,68152.5,0,140,0,nan,nan,8,8,16
-0,"deribit","BTC-PERPETUAL",1729516020,68096,68096.5,0,256,0,nan,nan,10,10,20
-1,"bybit","BTCUSD",1729515420,68170,68170.5,0,0,0,nan,nan,0,0,0
-1,"bybit","BTCUSD",1729515480,68193.5,68194,2,0,46,68170.5,68193.5,2,0,2
-1,"bybit","BTCUSD",1729515540,68194.5,68195,2,0,48,68170.5,68194.5,2,0,2
-1,"bybit","BTCUSD",1729515600,68167,68167.5,2,0,-7,68170.5,68167,2,0,2
-1,"bybit","BTCUSD",1729515660,68172,68172.5,0,-3,0,nan,nan,2,2,4
-1,"bybit","BTCUSD",1729515720,68181,68181.5,0,60,0,nan,nan,6,6,12
-1,"bybit","BTCUSD",1729515780,68225.5,68226,0,60,0,nan,nan,6,6,12
-1,"bybit","BTCUSD",1729515840,68222,68222.5,0,60,0,nan,nan,6,6,12
-1,"bybit","BTCUSD",1729515900,68176,68176.5,2,60,-31,68191.5,68176,8,6,14
-1,"bybit","BTCUSD",1729515960,68149,68149.5,0,58,0,nan,nan,8,8,16
-1,"bybit","BTCUSD",1729516020,68103,68103.5,0,1,0,nan,nan,10,10,20
+source,exchange,symbol,datetime_utc,best_bid_price,best_ask_price,buy_volume,sell_volume,position,realized_profit,unrealized_profit,average_price,mark_price
+0,"deribit","BTC-PERPETUAL",1729515420,68175,68175.5,0,0,0,0,0,nan,nan
+0,"deribit","BTC-PERPETUAL",1729515480,68201.5,68202,0,2,-2,0,-42,68181,68202
+0,"deribit","BTC-PERPETUAL",1729515540,68208,68208.5,0,2,-2,0,-55,68181,68208.5
+0,"deribit","BTC-PERPETUAL",1729515600,68165,68165.5,0,2,-2,0,31,68181,68165.5
+0,"deribit","BTC-PERPETUAL",1729515660,68177,68177.5,2,2,0,47,0,nan,nan
+0,"deribit","BTC-PERPETUAL",1729515720,68178.5,68179,6,6,0,70,0,nan,nan
+0,"deribit","BTC-PERPETUAL",1729515780,68225.5,68226,6,6,0,70,0,nan,nan
+0,"deribit","BTC-PERPETUAL",1729515840,68221,68221.5,6,6,0,70,0,nan,nan
+0,"deribit","BTC-PERPETUAL",1729515900,68179,68179.5,6,8,-2,70,69,68214,68179.5
+0,"deribit","BTC-PERPETUAL",1729515960,68152,68152.5,8,8,0,140,0,nan,nan
+0,"deribit","BTC-PERPETUAL",1729516020,68096,68096.5,10,10,0,256,0,nan,nan
+1,"bybit","BTCUSD",1729515420,68170,68170.5,0,0,0,0,0,nan,nan
+1,"bybit","BTCUSD",1729515480,68193.5,68194,2,0,2,0,46,68170.5,68193.5
+1,"bybit","BTCUSD",1729515540,68194.5,68195,2,0,2,0,48,68170.5,68194.5
+1,"bybit","BTCUSD",1729515600,68167,68167.5,2,0,2,0,-7,68170.5,68167
+1,"bybit","BTCUSD",1729515660,68172,68172.5,2,2,0,-3,0,nan,nan
+1,"bybit","BTCUSD",1729515720,68181,68181.5,6,6,0,60,0,nan,nan
+1,"bybit","BTCUSD",1729515780,68225.5,68226,6,6,0,60,0,nan,nan
+1,"bybit","BTCUSD",1729515840,68222,68222.5,6,6,0,60,0,nan,nan
+1,"bybit","BTCUSD",1729515900,68176,68176.5,8,6,2,60,-31,68191.5,68176
+1,"bybit","BTCUSD",1729515960,68149,68149.5,8,8,0,58,0,nan,nan
+1,"bybit","BTCUSD",1729516020,68103,68103.5,10,10,0,1,0,nan,nan
 ```
