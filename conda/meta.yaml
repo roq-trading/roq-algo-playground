@@ -42,6 +42,8 @@ requirements:
     - roq-oss-unordered_dense
     - roq-utils
     - tomlplusplus
+  run:
+    - python
 
 about:
   license: BSD-3-Clause
