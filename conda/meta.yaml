@@ -16,11 +16,15 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - rsync                                  # [build_platform != target_platform]
     - clang-format
     - cmake
     - make
     - roq-autogen
   host:
+    - python {{ python }}
     - catch2
     - fmt
     - libabseil
