@@ -42,8 +42,11 @@ find_package(roq-client REQUIRED)
 find_package(roq-flags REQUIRED)
 find_package(roq-logging REQUIRED)
 find_package(roq-market REQUIRED)
-find_package(tomlplusplus REQUIRED)                                                                                                                                           
+find_package(tomlplusplus REQUIRED)
 find_package(unordered_dense REQUIRED)
+
+find_package(Python COMPONENTS Interpreter Development)
+find_package(pybind11 CONFIG)
 
 # autogen
 
@@ -64,7 +67,7 @@ include_directories(
 
 # sub-projects
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/roq/algo/playground)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/roq/algo)
 
 # test
 
