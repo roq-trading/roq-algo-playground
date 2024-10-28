@@ -10,8 +10,6 @@
 
 #include "roq/utils/safe_cast.hpp"
 
-#include "roq/algo/strategy/factory.hpp"
-
 #include "roq/algo/playground/flags/flags.hpp"
 
 using namespace std::literals;
@@ -32,24 +30,11 @@ auto parse_enum(auto &value) {
 }
 
 auto create_strategy(auto &dispatcher, auto &settings, auto &order_cache, auto &config) {
-  std::vector<algo::strategy::Leg> legs;
-  for (auto &item : config.legs) {
-    auto leg = algo::strategy::Leg{
-        .source = item.source,
-        .account = item.account,
-        .exchange = item.exchange,
-        .symbol = item.symbol,
-        .position_effect = item.position_effect,
-        .margin_mode = item.margin_mode,
-        .time_in_force = item.time_in_force,
-    };
-    legs.emplace_back(std::move(leg));
-  }
   auto config_2 = algo::strategy::Config{
-      .legs = legs,
+      .legs = config.legs,
       .strategy_id = {},
   };
-  return algo::strategy::Factory::create(config.type, dispatcher, order_cache, config_2, settings.parameters);
+  return algo::Strategy::create(config.type, dispatcher, order_cache, config_2, settings.parameters);
 }
 }  // namespace
 

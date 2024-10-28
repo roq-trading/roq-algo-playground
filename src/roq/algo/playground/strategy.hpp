@@ -8,8 +8,7 @@
 
 #include "roq/algo/order_cache.hpp"
 
-#include "roq/algo/strategy/dispatcher.hpp"
-#include "roq/algo/strategy/handler.hpp"
+#include "roq/algo/strategy.hpp"
 
 #include "roq/client.hpp"
 
@@ -20,7 +19,7 @@ namespace roq {
 namespace algo {
 namespace playground {
 
-struct Strategy final : public client::Handler, public algo::strategy::Dispatcher, public algo::OrderCache {
+struct Strategy final : public client::Handler, public algo::Strategy::Dispatcher, public algo::OrderCache {
   Strategy(roq::client::Dispatcher &, Settings const &, Config const &);
 
   Strategy(Strategy &&) = default;
@@ -107,7 +106,7 @@ struct Strategy final : public client::Handler, public algo::strategy::Dispatche
  private:
   roq::client::Dispatcher &dispatcher_;
   utils::unordered_map<uint64_t, cache::Order> orders_;
-  std::unique_ptr<algo::strategy::Handler> strategy_;
+  std::unique_ptr<algo::Strategy> strategy_;
   uint64_t next_trade_id_ = {};
 };
 

@@ -8,9 +8,7 @@
 #include <string>
 #include <vector>
 
-#include "roq/margin_mode.hpp"
-#include "roq/position_effect.hpp"
-#include "roq/time_in_force.hpp"
+#include "roq/algo/leg.hpp"
 
 #include "roq/algo/strategy/type.hpp"
 
@@ -36,47 +34,12 @@ struct Config final : public roq::client::Config {
 
  public:
   algo::strategy::Type const type;
-  struct Leg final {
-    uint8_t source = {};
-    std::string account;
-    std::string exchange;
-    std::string symbol;
-    PositionEffect position_effect = {};
-    MarginMode margin_mode = {};
-    TimeInForce time_in_force = {};
-  };
-  std::vector<Leg> const legs;
+  std::vector<algo::Leg> const legs;
 };
 
 }  // namespace playground
 }  // namespace algo
 }  // namespace roq
-
-template <>
-struct fmt::formatter<roq::algo::playground::Config::Leg> {
-  constexpr auto parse(format_parse_context &context) { return std::begin(context); }
-  auto format(roq::algo::playground::Config::Leg const &value, format_context &context) const {
-    using namespace std::literals;
-    return fmt::format_to(
-        context.out(),
-        R"({{)"
-        R"(source={}, )"
-        R"(account="{}", )"
-        R"(exchange="{}", )"
-        R"(symbol="{}", )"
-        R"(position_effect={}, )"
-        R"(margin_mode={}, )"
-        R"(time_in_force={})"
-        R"(}})"sv,
-        value.source,
-        value.account,
-        value.exchange,
-        value.symbol,
-        value.position_effect,
-        value.margin_mode,
-        value.time_in_force);
-  }
-};
 
 template <>
 struct fmt::formatter<roq::algo::playground::Config> {

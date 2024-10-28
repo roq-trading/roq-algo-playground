@@ -25,6 +25,7 @@ auto parse_enum(auto &value) {
   return result.value();
 }
 
+// XXX FIXME TODO support String<N>
 template <typename R>
 void constexpr get_helper(R &result, auto &value) {
   using result_type = std::remove_cvref<R>::type;
@@ -58,13 +59,16 @@ auto parse_legs(auto &array) {
           get_helper(leg.source, value);
           break;
         case Key::ACCOUNT:
-          get_helper(leg.account, value);
+          // get_helper(leg.account, value);
+          leg.account = value.template value<std::string_view>().value();
           break;
         case Key::EXCHANGE:
-          get_helper(leg.exchange, value);
+          // get_helper(leg.exchange, value);
+          leg.exchange = value.template value<std::string_view>().value();
           break;
         case Key::SYMBOL:
-          get_helper(leg.symbol, value);
+          // get_helper(leg.symbol, value);
+          leg.symbol = value.template value<std::string_view>().value();
           break;
         case Key::TIME_IN_FORCE:
           get_helper(leg.time_in_force, value);

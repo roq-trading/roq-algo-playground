@@ -49,16 +49,19 @@ void create_sources(auto &settings, auto &config, auto &params, Callback callbac
     auto &symbols_2 = symbols[i];
     for (auto &item : config.legs)
       if (i == item.source) {
-        assert(!std::empty(item.exchange) && !std::empty(item.symbol));
-        symbols_and_positions_2[item.exchange][item.symbol] = 0.0;
-        if (!std::empty(item.account) && std::ranges::find_if(accounts_2, [&](auto &item_2) { return item_2.name == item.account; }) == std::end(accounts_2)) {
-          auto account = client::Simulator2::Account{
-              .name = item.account,
+        auto account = static_cast<std::string_view>(item.account);
+        auto exchange = static_cast<std::string_view>(item.exchange);
+        auto symbol = static_cast<std::string_view>(item.symbol);
+        assert(!std::empty(exchange) && !std::empty(symbol));
+        symbols_and_positions_2[std::string{exchange}][std::string{symbol}] = 0.0;
+        if (!std::empty(account) && std::ranges::find_if(accounts_2, [&](auto &item_2) { return item_2.name == account; }) == std::end(accounts_2)) {
+          auto account_2 = client::Simulator2::Account{
+              .name = account,
               .symbols_and_positions = symbols_and_positions_2,
           };
-          accounts_2.emplace_back(std::move(account));
+          accounts_2.emplace_back(std::move(account_2));
         }
-        symbols_2[item.exchange].emplace(item.symbol);
+        symbols_2[std::string{exchange}].emplace(symbol);
       }
     auto source = client::Simulator2::Source{
         .path = params[i],
