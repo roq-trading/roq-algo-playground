@@ -48,9 +48,12 @@ def create_summary_reporter():
 
 strategy = create_strategy()
 print(strategy)
+# TODO: print schema
 
 reporter = create_reporter()
 print(reporter)
+# TODO: extract result data
 
 summary_reporter = create_summary_reporter()
 print(summary_reporter)
+# TODO: extract result data
