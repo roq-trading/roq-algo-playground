@@ -110,16 +110,16 @@ void Application::trading(Settings const &settings, Config const &config, std::s
 }
 
 void Application::simulation(Settings const &settings, Config const &config, std::span<std::string_view const> const &params) {
-  auto matcher_type = parse_enum<algo::matcher::Factory::Type>(settings.simulation.matcher_type);
+  auto matcher_type = parse_enum<algo::matcher::Type>(settings.simulation.matcher_type);
   auto market_data_source = parse_enum<algo::MarketDataSource>(settings.simulation.market_data_source);
   auto reporter_output_type = parse_enum<algo::reporter::OutputType>(settings.simulation.reporter_output_type);
 
   struct Factory final : public client::Simulator2::Factory {
-    Factory(algo::matcher::Factory::Type matcher_type, algo::MarketDataSource market_data_source)
+    Factory(algo::matcher::Type matcher_type, algo::MarketDataSource market_data_source)
         : matcher_type_{matcher_type}, market_data_source_{market_data_source} {}
 
-    std::unique_ptr<algo::matcher::Handler> create_matcher(
-        algo::matcher::Dispatcher &dispatcher,
+    std::unique_ptr<algo::Matcher> create_matcher(
+        algo::Matcher::Dispatcher &dispatcher,
         algo::OrderCache &order_cache,
         [[maybe_unused]] uint8_t source,
         std::string_view const &exchange,
@@ -133,7 +133,7 @@ void Application::simulation(Settings const &settings, Config const &config, std
     }
 
    private:
-    algo::matcher::Factory::Type const matcher_type_;
+    algo::matcher::Type const matcher_type_;
     algo::MarketDataSource const market_data_source_;
   } factory{matcher_type, market_data_source};
 

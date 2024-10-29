@@ -23,25 +23,30 @@ def create_legs():
     return result
 
 
-def create_strategy():
+def create_config():
     legs = create_legs()
-    config = roq.algo.strategy.Config(legs=legs, strategy_id=123)
+    result = roq.algo.strategy.Config(legs=legs, strategy_id=123)
+    return result
+
+
+def create_strategy():
+    config = create_config()
     parameters = (
         "max_age=10s;threshold=5;quantity_0=1;min_position_0=-5;max_position_0=5"
     )
-    result = roq.algo.strategy.create(roq.algo.strategy.Type.ARBITRAGE, config, parameters)
+    result = roq.algo.strategy.create(
+        roq.algo.strategy.Type.ARBITRAGE, config, parameters
+    )
     return result
 
 
 def create_arbitrage_strategy():
-    legs = create_legs()
-    config = roq.algo.strategy.Config(legs=legs, strategy_id=123)
+    config = create_config()
     parameters = (
         "max_age=10s;threshold=5;quantity_0=1;min_position_0=-5;max_position_0=5"
     )
     result = roq.algo.arbitrage.create(config, parameters)
     return result
-
 
 
 def create_reporter():
@@ -72,3 +77,9 @@ print(reporter)
 summary_reporter = create_summary_reporter()
 print(summary_reporter)
 # TODO: extract result data
+
+
+# XXX settings (latency)
+# XXX sources (settings + config)
+
+reporter = roq.client.simulator2(create_reporter, create_matcher, create_strategy, config)
