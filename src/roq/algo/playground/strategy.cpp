@@ -10,6 +10,8 @@
 
 #include "roq/utils/safe_cast.hpp"
 
+#include "roq/algo/strategy/factory.hpp"
+
 #include "roq/algo/playground/flags/flags.hpp"
 
 using namespace std::literals;
@@ -34,7 +36,7 @@ auto create_strategy(auto &dispatcher, auto &settings, auto &order_cache, auto &
       .legs = config.legs,
       .strategy_id = {},
   };
-  return algo::Strategy::create(config.type, dispatcher, order_cache, config_2, settings.parameters);
+  return algo::strategy::Factory::create(config.type, dispatcher, order_cache, config_2, settings.parameters);
 }
 }  // namespace
 

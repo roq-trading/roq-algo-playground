@@ -29,17 +29,28 @@ def create_strategy():
     parameters = (
         "max_age=10s;threshold=5;quantity_0=1;min_position_0=-5;max_position_0=5"
     )
-    result = roq.algo.Strategy(roq.algo.strategy.Type.ARBITRAGE, config, parameters)
+    result = roq.algo.strategy.create(roq.algo.strategy.Type.ARBITRAGE, config, parameters)
     return result
 
 
+def create_arbitrage_strategy():
+    legs = create_legs()
+    config = roq.algo.strategy.Config(legs=legs, strategy_id=123)
+    parameters = (
+        "max_age=10s;threshold=5;quantity_0=1;min_position_0=-5;max_position_0=5"
+    )
+    result = roq.algo.arbitrage.create(config, parameters)
+    return result
+
+
+
 def create_reporter():
-    result = roq.algo.Reporter(type=roq.algo.reporter.Type.SUMMARY)
+    result = roq.algo.reporter.create(type=roq.algo.reporter.Type.SUMMARY)
     return result
 
 
 def create_summary_reporter():
-    result = roq.algo.reporter.Summary(
+    result = roq.algo.reporter.Summary.create(
         market_data_source=roq.algo.MarketDataSource.TOP_OF_BOOK,
         sample_frequency=datetime.timedelta(seconds=60),
     )
@@ -48,6 +59,10 @@ def create_summary_reporter():
 
 strategy = create_strategy()
 print(strategy)
+# TODO: print schema
+
+arbitrage_strategy = create_arbitrage_strategy()
+print(arbitrage_strategy)
 # TODO: print schema
 
 reporter = create_reporter()
