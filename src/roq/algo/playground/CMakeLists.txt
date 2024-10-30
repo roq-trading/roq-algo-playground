@@ -2,7 +2,7 @@ set(TARGET_NAME ${PROJECT_NAME})
 
 add_subdirectory(flags)
 
-set(SOURCES application.cpp config.cpp settings.cpp strategy.cpp main.cpp)
+set(SOURCES application.cpp config.cpp factory.cpp settings.cpp main.cpp)
 
 add_executable(${TARGET_NAME} ${SOURCES})
 

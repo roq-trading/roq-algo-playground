@@ -33,8 +33,10 @@ struct Config final : public roq::client::Config {
   Settings const &settings_;
 
  public:
-  algo::strategy::Type const type;
-  std::vector<algo::Leg> const legs;
+  struct {
+    algo::strategy::Type const type;
+    std::vector<algo::Leg> const legs;
+  } strategy;
 };
 
 }  // namespace playground
@@ -49,10 +51,12 @@ struct fmt::formatter<roq::algo::playground::Config> {
     return fmt::format_to(
         context.out(),
         R"({{)"
+        R"(strategy={{)"
         R"(type={}, )"
         R"(legs=[{}])"
+        R"(}})"
         R"(}})"sv,
-        value.type,
-        fmt::join(value.legs, ", "sv));
+        value.strategy.type,
+        fmt::join(value.strategy.legs, ", "sv));
   }
 };

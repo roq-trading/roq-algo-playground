@@ -84,7 +84,7 @@ auto parse_legs(auto &array) {
 // XXX FIXME TODO we're parsing TWO times !!!
 
 template <typename R>
-auto create_type(auto &config_file) {
+auto create_strategy_type(auto &config_file) {
   using result_type = std::remove_cvref<R>::type;
   result_type result = {};
   auto root = toml::parse_file(config_file);
@@ -128,29 +128,40 @@ auto create_legs(auto &config_file) {
   }
   return result;
 }
+
+template <typename R>
+auto create_strategy(auto &config_file) {
+  using result_type = std::remove_cvref<R>::type;
+  auto result = result_type{
+      .type = create_strategy_type<decltype(result_type::type)>(config_file),
+      .legs = create_legs<decltype(result_type::legs)>(config_file),
+  };
+  return result;
+}
 }  // namespace
 
 // === IMPLEMENTATION ===
 
-Config::Config(Settings const &settings)
-    : settings_{settings}, type{create_type<decltype(type)>(settings.config_file)}, legs{create_legs<decltype(legs)>(settings.config_file)} {
+Config::Config(Settings const &settings) : settings_{settings}, strategy{create_strategy<decltype(strategy)>(settings.config_file)} {
   log::info("config={}"sv, *this);
 }
 
 void Config::dispatch(Handler &handler) const {
-  // settings
-  handler(roq::client::Settings{
+  auto settings = client::Settings{
       .order_cancel_policy = roq::OrderCancelPolicy::BY_ACCOUNT,
       .order_management = {},
-  });
-  // accounts
-  for (auto &item : legs) {
-    client::Account account{.regex = item.account};
+  };
+  handler(settings);
+
+  for (auto &item : strategy.legs) {
+    auto account = client::Account{
+        .regex = item.account,
+    };
     handler(account);
   }
-  // symbols
-  for (auto &item : legs) {
-    client::Symbol symbol{
+
+  for (auto &item : strategy.legs) {
+    auto symbol = client::Symbol{
         .regex = item.symbol,
         .exchange = item.exchange,
     };
