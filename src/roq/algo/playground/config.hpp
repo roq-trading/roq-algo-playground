@@ -10,9 +10,8 @@
 
 #include "roq/algo/leg.hpp"
 
+#include "roq/algo/strategy/config.hpp"
 #include "roq/algo/strategy/type.hpp"
-
-#include "roq/client/config.hpp"
 
 #include "roq/algo/playground/settings.hpp"
 
@@ -20,19 +19,19 @@ namespace roq {
 namespace algo {
 namespace playground {
 
-struct Config final : public roq::client::Config {
+struct Config final {
   explicit Config(Settings const &);
 
   Config(Config &&) = default;
   Config(Config const &) = delete;
 
- protected:
-  void dispatch(Handler &) const override;
+  operator algo::strategy::Config() const {
+    return {
+        .legs = strategy.legs,
+        .strategy_id = {},
+    };
+  }
 
- private:
-  Settings const &settings_;
-
- public:
   struct {
     algo::strategy::Type const type;
     std::vector<algo::Leg> const legs;

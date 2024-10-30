@@ -39,11 +39,8 @@ Factory::Factory(Settings const &settings, Config const &config)
       market_data_source_{parse_enum<decltype(market_data_source_)>(settings.simulation.market_data_source)} {
 }
 
-std::unique_ptr<algo::Strategy> Factory::create_strategy(algo::Strategy::Dispatcher &dispatcher, algo::OrderCache &order_cache) const {
-  auto config = algo::strategy::Config{
-      .legs = config_.strategy.legs,
-      .strategy_id = {},
-  };
+std::unique_ptr<algo::Strategy> Factory::create_strategy(
+    algo::Strategy::Dispatcher &dispatcher, algo::OrderCache &order_cache, algo::strategy::Config const &config) const {
   return algo::strategy::Factory::create(config_.strategy.type, dispatcher, order_cache, config, settings_.parameters);
 }
 

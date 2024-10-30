@@ -142,31 +142,8 @@ auto create_strategy(auto &config_file) {
 
 // === IMPLEMENTATION ===
 
-Config::Config(Settings const &settings) : settings_{settings}, strategy{create_strategy<decltype(strategy)>(settings.config_file)} {
+Config::Config(Settings const &settings) : strategy{create_strategy<decltype(strategy)>(settings.config_file)} {
   log::info("config={}"sv, *this);
-}
-
-void Config::dispatch(Handler &handler) const {
-  auto settings = client::Settings{
-      .order_cancel_policy = roq::OrderCancelPolicy::BY_ACCOUNT,
-      .order_management = {},
-  };
-  handler(settings);
-
-  for (auto &item : strategy.legs) {
-    auto account = client::Account{
-        .regex = item.account,
-    };
-    handler(account);
-  }
-
-  for (auto &item : strategy.legs) {
-    auto symbol = client::Symbol{
-        .regex = item.symbol,
-        .exchange = item.exchange,
-    };
-    handler(symbol);
-  }
 }
 
 }  // namespace playground

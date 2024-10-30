@@ -18,7 +18,7 @@ namespace playground {
 struct Factory final : public client::Simulator2::Factory {
   Factory(Settings const &, Config const &);
 
-  std::unique_ptr<algo::Strategy> create_strategy(algo::Strategy::Dispatcher &, algo::OrderCache &) const override;
+  std::unique_ptr<algo::Strategy> create_strategy(algo::Strategy::Dispatcher &, algo::OrderCache &, algo::strategy::Config const &) const override;
 
   std::unique_ptr<algo::Reporter> create_reporter() const override;
 

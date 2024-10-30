@@ -7,6 +7,8 @@
 
 #include "roq/service.hpp"
 
+#include "roq/algo/strategy/config.hpp"
+
 #include "roq/algo/playground/factory.hpp"
 #include "roq/algo/playground/settings.hpp"
 
@@ -20,9 +22,9 @@ struct Application final : public roq::Service {
  protected:
   int main(roq::args::Parser const &) override;
 
-  void simulation(Settings const &, Factory const &, std::span<client::Simulator2::Source const> const &);
+  void simulation(Settings const &, Factory const &, algo::strategy::Config const &, std::span<std::string_view const> const &params);
 
-  void trading(Settings const &, Factory const &, std::span<std::string_view const> const &params);
+  void trading(Settings const &, Factory const &, algo::strategy::Config const &, std::span<std::string_view const> const &params);
 };
 
 }  // namespace playground
