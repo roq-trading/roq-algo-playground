@@ -16,11 +16,11 @@ namespace roq {
 namespace algo {
 namespace playground {
 
-struct Application final : public roq::Service {
+struct Application final : public Service {
   using Service::Service;
 
  protected:
-  int main(roq::args::Parser const &) override;
+  int main(args::Parser const &) override;
 
   void simulation(Settings const &, Factory const &, algo::strategy::Config const &, std::span<std::string_view const> const &params);
 
