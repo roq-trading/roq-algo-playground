@@ -53,18 +53,8 @@ std::unique_ptr<algo::Reporter> Factory::create_reporter() const {
 }
 
 std::unique_ptr<algo::Matcher> Factory::create_matcher(
-    algo::Matcher::Dispatcher &dispatcher,
-    algo::OrderCache &order_cache,
-    uint8_t source,
-    std::string_view const &exchange,
-    std::string_view const &symbol) const {
-  auto config = algo::matcher::Config{
-      .source = source,
-      .exchange = exchange,
-      .symbol = symbol,
-      .market_data_source = market_data_source_,
-  };
-  return algo::matcher::Factory::create(matcher_type_, dispatcher, config, order_cache);
+    algo::Matcher::Dispatcher &dispatcher, algo::OrderCache &order_cache, algo::matcher::Config const &config) const {
+  return algo::matcher::Factory::create(matcher_type_, dispatcher, order_cache, config);
 }
 
 }  // namespace playground

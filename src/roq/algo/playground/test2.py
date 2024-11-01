@@ -3,14 +3,12 @@
 import os
 import datetime
 
-from types import SimpleNamespace
-
 import pandas as pd
 
 import roq
 
 
-settings = roq.client.Settings2(
+SETTINGS = roq.client.Settings2(
     app={
         "name": "trader",
     },
@@ -22,50 +20,69 @@ settings = roq.client.Settings2(
 )
 
 
-config = roq.algo.strategy.Config(
+CONFIG = roq.algo.strategy.Config(
     legs=[
-            roq.algo.Leg(
-                source=0,
-                account="A1",
-                exchange="deribit",
-                symbol="BTC-PERPETUAL",
-                time_in_force=roq.TimeInForce.GTC,
-            ),
-            roq.algo.Leg(
-                source=1,
-                account="A1",
-                exchange="bybit",
-                symbol="BTCUSD",
-            ),
-        ],
+        roq.algo.Leg(
+            source=0,
+            account="A1",
+            exchange="deribit",
+            symbol="BTC-PERPETUAL",
+            time_in_force=roq.TimeInForce.GTC,
+        ),
+        roq.algo.Leg(
+            source=1,
+            account="A1",
+            exchange="bybit",
+            symbol="BTCUSD",
+        ),
+    ],
     strategy_id=123,
 )
 
 
-factory = dict(
-    create_strategy=lambda dispatcher, config: roq.algo.strateg.create(
-        type=config.strategy.type,
+def create_strategy(dispatcher, order_cache, config):
+    return roq.algo.strategy.create(
+        type=roq.algo.strategy.Type.ARBITRAGE,
+        dispatcher=dispatcher,
+        order_cache=order_cache,
         config=config,
         parameters="max_age=10s;threshold=5;quantity_0=1;min_position_0=-5;max_position_0=5",
-    ),
-    create_reporter=lambda: roq.algo.reporter.create(
+    )
+
+
+def create_reporter():
+    return roq.algo.reporter.create(
         type=roq.algo.reporter.Type.SUMMARY,
-    ),
-    create_matcher=lambda dispatcher, source, exchange, symbol: None,
+    )
+
+
+def create_matcher(dispatcher, order_cache, config):
+    return roq.algo.matcher.create(
+        type=roq.algo.matcher.Type.SIMPLE,
+        dispatcher=dispatcher,
+        order_cache=order_cache,
+        config=config,
+    )
+
+
+FACTORY = roq.algo.Factory(
+    create_strategy=create_strategy,
+    create_reporter=create_reporter,
+    create_matcher=create_matcher,
 )
 
 
-parameters = [
+PARAMETERS = [
     "{HOME}/var/lib/roq/data/deribit-public.roq".format(**os.environ),
     "{HOME}/var/lib/roq/data/bybit-public.roq".format(**os.environ),
 ]
 
 
 reporter = roq.client.Simulator2.dispatch(
-    settings=settings,
-    factory=factory,
-    config=config,
-    parameters=parameters,
+    settings=SETTINGS,
+    factory=FACTORY,
+    config=CONFIG,
+    parameters=PARAMETERS,
 )
 
 

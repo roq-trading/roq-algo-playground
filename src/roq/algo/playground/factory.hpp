@@ -22,8 +22,7 @@ struct Factory final : public client::Simulator2::Factory {
 
   std::unique_ptr<algo::Reporter> create_reporter() const override;
 
-  std::unique_ptr<algo::Matcher> create_matcher(
-      algo::Matcher::Dispatcher &, algo::OrderCache &, uint8_t source, std::string_view const &exchange, std::string_view const &symbol) const override;
+  std::unique_ptr<algo::Matcher> create_matcher(algo::Matcher::Dispatcher &, algo::OrderCache &, algo::matcher::Config const &) const override;
 
  private:
   Settings const &settings_;
