@@ -159,8 +159,8 @@ reporter = roq.client.Simulator2.dispatch(
 )
 print(reporter)
 
-data = reporter.extract("history")
-print(data)
+result = reporter.extract("history")
+print(result)
 
-df = pd.DataFrame(data)
+df = pd.DataFrame(result['data']).set_index(result['index'])
 print(df)
