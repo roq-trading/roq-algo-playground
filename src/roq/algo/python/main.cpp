@@ -2,6 +2,8 @@
 
 #include <pybind11/pybind11.h>
 
+#include "roq/algo/reporter.hpp"
+
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
 
@@ -39,6 +41,10 @@ Add two numbers
 
 Some other explanation about the add function.
                           )pbdoc";
+
+std::unique_ptr<roq::algo::Reporter> create_my_reporter() {
+  return {};
+};
 }  // namespace
 
 // === IMPLEMENTATION ===
@@ -48,9 +54,15 @@ PYBIND11_MODULE(playground, m) {
 
   m.def("add", &add, ADD_DOC);
 
+  PYBIND11_DECLARE_HOLDER_TYPE(Reporter, std::shared_ptr<algo::Reporter>);
+
+  m.def("create_my_reporter", &create_my_reporter);
+
 #ifdef VERSION_INFO
   m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
 #else
   m.attr("__version__") = "dev";
 #endif
+
+  auto m2 = py::module::import("roq");
 }
