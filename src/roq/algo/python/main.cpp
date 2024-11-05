@@ -54,8 +54,6 @@ PYBIND11_MODULE(playground, m) {
 
   m.def("add", &add, ADD_DOC);
 
-  PYBIND11_DECLARE_HOLDER_TYPE(Reporter, std::shared_ptr<algo::Reporter>);
-
   m.def("create_my_reporter", &create_my_reporter);
 
 #ifdef VERSION_INFO
