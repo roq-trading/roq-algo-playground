@@ -1,6 +1,6 @@
 /* Copyright (c) 2017-2024, Hans Erik Thrane */
 
-#include "roq/samples/algo/playground/factory.hpp"
+#include "roq/samples/algo/factory.hpp"
 
 #include <magic_enum.hpp>
 
@@ -19,7 +19,6 @@ using namespace std::literals;
 namespace roq {
 namespace samples {
 namespace algo {
-namespace playground {
 
 // === HELPERS ===
 
@@ -58,7 +57,6 @@ std::unique_ptr<roq::algo::Matcher> Factory::create_matcher(
   return roq::algo::matcher::Factory::create(matcher_type_, dispatcher, order_cache, config);
 }
 
-}  // namespace playground
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq

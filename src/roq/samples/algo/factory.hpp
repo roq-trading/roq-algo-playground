@@ -8,13 +8,12 @@
 
 #include "roq/algo/matcher/type.hpp"
 
-#include "roq/samples/algo/playground/config.hpp"
-#include "roq/samples/algo/playground/settings.hpp"
+#include "roq/samples/algo/config.hpp"
+#include "roq/samples/algo/settings.hpp"
 
 namespace roq {
 namespace samples {
 namespace algo {
-namespace playground {
 
 struct Factory final : public client::Simulator2::Factory {
   Factory(Settings const &, Config const &);
@@ -34,7 +33,6 @@ struct Factory final : public client::Simulator2::Factory {
   roq::algo::MarketDataSource const market_data_source_;
 };
 
-}  // namespace playground
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq

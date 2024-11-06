@@ -13,12 +13,11 @@
 #include "roq/algo/strategy/config.hpp"
 #include "roq/algo/strategy/type.hpp"
 
-#include "roq/samples/algo/playground/settings.hpp"
+#include "roq/samples/algo/settings.hpp"
 
 namespace roq {
 namespace samples {
 namespace algo {
-namespace playground {
 
 struct Config final {
   explicit Config(Settings const &);
@@ -39,15 +38,14 @@ struct Config final {
   } strategy;
 };
 
-}  // namespace playground
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq
 
 template <>
-struct fmt::formatter<roq::samples::algo::playground::Config> {
+struct fmt::formatter<roq::samples::algo::Config> {
   constexpr auto parse(format_parse_context &context) { return std::begin(context); }
-  auto format(roq::samples::algo::playground::Config const &value, format_context &context) const {
+  auto format(roq::samples::algo::Config const &value, format_context &context) const {
     using namespace std::literals;
     return fmt::format_to(
         context.out(),

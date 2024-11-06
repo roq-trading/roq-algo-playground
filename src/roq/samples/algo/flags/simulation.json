@@ -1,5 +1,5 @@
 {
-  "name": "roq/samples/algo/playground/flags/Simulation",
+  "name": "roq/samples/algo/flags/Simulation",
   "type": "flags",
   "prefix": "simulation_",
   "values": [

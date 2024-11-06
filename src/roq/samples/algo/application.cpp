@@ -1,6 +1,6 @@
 /* Copyright (c) 2017-2024, Hans Erik Thrane */
 
-#include "roq/samples/algo/playground/application.hpp"
+#include "roq/samples/algo/application.hpp"
 
 #include <magic_enum.hpp>
 
@@ -14,7 +14,6 @@ using namespace std::chrono_literals;
 namespace roq {
 namespace samples {
 namespace algo {
-namespace playground {
 
 // === HELPERS ===
 
@@ -66,7 +65,6 @@ void Application::trading(
   client::Trader2::dispatch(settings, factory, config, params);
 }
 
-}  // namespace playground
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq

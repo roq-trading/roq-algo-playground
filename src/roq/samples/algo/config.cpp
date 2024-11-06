@@ -1,6 +1,6 @@
 /* Copyright (c) 2017-2024, Hans Erik Thrane */
 
-#include "roq/samples/algo/playground/config.hpp"
+#include "roq/samples/algo/config.hpp"
 
 #include <nameof.hpp>
 
@@ -13,7 +13,6 @@ using namespace std::literals;
 namespace roq {
 namespace samples {
 namespace algo {
-namespace playground {
 
 // === HELPERS ===
 
@@ -147,7 +146,6 @@ Config::Config(Settings const &settings) : strategy{create_strategy<decltype(str
   log::info("config={}"sv, *this);
 }
 
-}  // namespace playground
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq

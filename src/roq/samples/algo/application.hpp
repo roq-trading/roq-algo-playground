@@ -9,13 +9,12 @@
 
 #include "roq/algo/strategy/config.hpp"
 
-#include "roq/samples/algo/playground/factory.hpp"
-#include "roq/samples/algo/playground/settings.hpp"
+#include "roq/samples/algo/factory.hpp"
+#include "roq/samples/algo/settings.hpp"
 
 namespace roq {
 namespace samples {
 namespace algo {
-namespace playground {
 
 struct Application final : public Service {
   using Service::Service;
@@ -28,7 +27,6 @@ struct Application final : public Service {
   void trading(Settings const &, Factory const &, roq::algo::strategy::Config const &, std::span<std::string_view const> const &params);
 };
 
-}  // namespace playground
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq
