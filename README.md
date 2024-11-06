@@ -1,4 +1,4 @@
-# roq-algo-playground
+# roq-cpp-algo-template
 
 This is a "framework" to manage the strategies implemented by the `roq-algo` library.
 
