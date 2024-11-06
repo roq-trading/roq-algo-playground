@@ -67,7 +67,7 @@ include_directories(
 
 # sub-projects
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/roq/algo)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/roq/samples/algo)
 
 # test
 

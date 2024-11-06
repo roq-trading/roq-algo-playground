@@ -1,6 +1,6 @@
 /* Copyright (c) 2017-2024, Hans Erik Thrane */
 
-#include "roq/algo/playground/application.hpp"
+#include "roq/samples/algo/playground/application.hpp"
 
 #include <magic_enum.hpp>
 
@@ -12,6 +12,7 @@ using namespace std::literals;
 using namespace std::chrono_literals;
 
 namespace roq {
+namespace samples {
 namespace algo {
 namespace playground {
 
@@ -54,17 +55,18 @@ int Application::main(args::Parser const &args) {
 }
 
 void Application::simulation(
-    Settings const &settings, Factory const &factory, algo::strategy::Config const &config, std::span<std::string_view const> const &params) {
-  auto output_type = parse_enum<algo::reporter::OutputType>(settings.simulation.reporter_output_type);
+    Settings const &settings, Factory const &factory, roq::algo::strategy::Config const &config, std::span<std::string_view const> const &params) {
+  auto output_type = parse_enum<roq::algo::reporter::OutputType>(settings.simulation.reporter_output_type);
   auto reporter = client::Simulator2::dispatch(settings, factory, config, params);
   (*reporter).print(output_type, settings.simulation.reporter_label);
 }
 
 void Application::trading(
-    Settings const &settings, Factory const &factory, algo::strategy::Config const &config, std::span<std::string_view const> const &params) {
+    Settings const &settings, Factory const &factory, roq::algo::strategy::Config const &config, std::span<std::string_view const> const &params) {
   client::Trader2::dispatch(settings, factory, config, params);
 }
 
 }  // namespace playground
 }  // namespace algo
+}  // namespace samples
 }  // namespace roq

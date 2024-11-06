@@ -9,10 +9,11 @@
 
 #include "roq/algo/strategy/config.hpp"
 
-#include "roq/algo/playground/factory.hpp"
-#include "roq/algo/playground/settings.hpp"
+#include "roq/samples/algo/playground/factory.hpp"
+#include "roq/samples/algo/playground/settings.hpp"
 
 namespace roq {
+namespace samples {
 namespace algo {
 namespace playground {
 
@@ -22,11 +23,12 @@ struct Application final : public Service {
  protected:
   int main(args::Parser const &) override;
 
-  void simulation(Settings const &, Factory const &, algo::strategy::Config const &, std::span<std::string_view const> const &params);
+  void simulation(Settings const &, Factory const &, roq::algo::strategy::Config const &, std::span<std::string_view const> const &params);
 
-  void trading(Settings const &, Factory const &, algo::strategy::Config const &, std::span<std::string_view const> const &params);
+  void trading(Settings const &, Factory const &, roq::algo::strategy::Config const &, std::span<std::string_view const> const &params);
 };
 
 }  // namespace playground
 }  // namespace algo
+}  // namespace samples
 }  // namespace roq

@@ -1,6 +1,6 @@
 /* Copyright (c) 2017-2024, Hans Erik Thrane */
 
-#include "roq/algo/playground/factory.hpp"
+#include "roq/samples/algo/playground/factory.hpp"
 
 #include <magic_enum.hpp>
 
@@ -17,6 +17,7 @@
 using namespace std::literals;
 
 namespace roq {
+namespace samples {
 namespace algo {
 namespace playground {
 
@@ -39,24 +40,25 @@ Factory::Factory(Settings const &settings, Config const &config)
       market_data_source_{parse_enum<decltype(market_data_source_)>(settings.simulation.market_data_source)} {
 }
 
-std::unique_ptr<algo::Strategy> Factory::create_strategy(
-    algo::Strategy::Dispatcher &dispatcher, algo::OrderCache &order_cache, algo::strategy::Config const &config) const {
-  return algo::strategy::Factory::create(config_.strategy.type, dispatcher, order_cache, config, settings_.parameters);
+std::unique_ptr<roq::algo::Strategy> Factory::create_strategy(
+    roq::algo::Strategy::Dispatcher &dispatcher, roq::algo::OrderCache &order_cache, roq::algo::strategy::Config const &config) const {
+  return roq::algo::strategy::Factory::create(config_.strategy.type, dispatcher, order_cache, config, settings_.parameters);
 }
 
-std::unique_ptr<algo::Reporter> Factory::create_reporter() const {
-  auto config = algo::reporter::Summary::Config{
+std::unique_ptr<roq::algo::Reporter> Factory::create_reporter() const {
+  auto config = roq::algo::reporter::Summary::Config{
       .market_data_source = market_data_source_,
       .sample_frequency = settings_.simulation.reporter_sample_freq,
   };
-  return algo::reporter::Summary::create(config);
+  return roq::algo::reporter::Summary::create(config);
 }
 
-std::unique_ptr<algo::Matcher> Factory::create_matcher(
-    algo::Matcher::Dispatcher &dispatcher, algo::OrderCache &order_cache, algo::matcher::Config const &config) const {
-  return algo::matcher::Factory::create(matcher_type_, dispatcher, order_cache, config);
+std::unique_ptr<roq::algo::Matcher> Factory::create_matcher(
+    roq::algo::Matcher::Dispatcher &dispatcher, roq::algo::OrderCache &order_cache, roq::algo::matcher::Config const &config) const {
+  return roq::algo::matcher::Factory::create(matcher_type_, dispatcher, order_cache, config);
 }
 
 }  // namespace playground
 }  // namespace algo
+}  // namespace samples
 }  // namespace roq

@@ -6,10 +6,11 @@
 
 #include "roq/client/flags/settings.hpp"
 
-#include "roq/algo/playground/flags/flags.hpp"
-#include "roq/algo/playground/flags/simulation.hpp"
+#include "roq/samples/algo/playground/flags/flags.hpp"
+#include "roq/samples/algo/playground/flags/simulation.hpp"
 
 namespace roq {
+namespace samples {
 namespace algo {
 namespace playground {
 
@@ -21,4 +22,5 @@ struct Settings final : public client::flags::Settings, public flags::Flags {
 
 }  // namespace playground
 }  // namespace algo
+}  // namespace samples
 }  // namespace roq
