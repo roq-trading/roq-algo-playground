@@ -49,7 +49,7 @@ std::unique_ptr<roq::algo::Reporter> create_my_reporter() {
 
 // === IMPLEMENTATION ===
 
-PYBIND11_MODULE(playground, m) {
+PYBIND11_MODULE(ROQ_PACKAGE_NAME, m) {
   m.doc() = MODULE_DOC;
 
   m.def("add", &add, ADD_DOC);
