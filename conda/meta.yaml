@@ -1,5 +1,5 @@
 package:
-  name: roq-algo-playground
+  name: roq-cpp-algo-template
   version: {{ GIT_DESCRIBE_TAG }}
 
 source:
@@ -49,4 +49,4 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
-  summary: Roq C++ Algo Playground
+  summary: Roq C++ Algo Template
