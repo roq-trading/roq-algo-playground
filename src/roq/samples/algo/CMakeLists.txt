@@ -45,7 +45,7 @@ pybind11_add_module(${PYTHON_TARGET_NAME} ${PYTHON_SOURCES})
 target_link_libraries(
   ${PYTHON_TARGET_NAME}
   PUBLIC pybind11::headers
-  PRIVATE ${PROJECT_NAME}-impl roq-algo::roq-algo fmt::fmt)
+  PRIVATE ${PROJECT_NAME}-impl roq-python-utils::roq-python-utils roq-algo::roq-algo fmt::fmt)
 
 string(REPLACE "-" "_" PYTHON_PROJECT_NAME ${PROJECT_NAME}) # note! using PROJECT_NAME
 set_target_properties(${PYTHON_TARGET_NAME} PROPERTIES OUTPUT_NAME ${PYTHON_PROJECT_NAME})

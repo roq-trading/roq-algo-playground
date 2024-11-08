@@ -4,6 +4,10 @@
 
 #include "roq/algo/reporter.hpp"
 
+#include "roq/utils/common.hpp"
+
+#include "roq/python/utils/convert.hpp"
+
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
 
@@ -55,6 +59,8 @@ PYBIND11_MODULE(ROQ_PACKAGE_NAME, m) {
   m.def("add", &add, ADD_DOC);
 
   m.def("create_my_reporter", &create_my_reporter);
+
+  m.def("foo", [](roq::Side side) { return roq::utils::invert(side); });
 
 #ifdef VERSION_INFO
   m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
