@@ -15,16 +15,14 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}
-    - python {{ python }}
+    - python
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - rsync                                  # [build_platform != target_platform]
+    - {{ compiler('cxx') }}
     - clang-format
     - cmake
     - make
     - roq-autogen
   host:
-    - python {{ python }}
     - catch2
     - fmt
     - libabseil
@@ -43,8 +41,6 @@ requirements:
     - roq-python-core
     - roq-utils
     - tomlplusplus
-  run:
-    - python {{ python }}
 
 about:
   license: BSD-3-Clause
