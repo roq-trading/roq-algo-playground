@@ -6,7 +6,7 @@
 
 #include "roq/utils/common.hpp"
 
-#include "roq/python/utils/convert.hpp"
+#include "roq/python/core/convert.hpp"
 
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)

@@ -40,7 +40,7 @@ requirements:
     - roq-oss-magic_enum
     - roq-oss-nameof
     - roq-oss-unordered_dense
-    - roq-python-utils
+    - roq-python-core
     - roq-utils
     - tomlplusplus
   run:
