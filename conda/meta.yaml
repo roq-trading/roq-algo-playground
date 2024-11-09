@@ -25,6 +25,7 @@ requirements:
     - setuptools
   host:
     - python
+    - setuptools
     - catch2
     - fmt
     - libabseil
