@@ -35,6 +35,8 @@ find_package(absl REQUIRED)
 find_package(fmt REQUIRED)
 find_package(magic_enum REQUIRED)
 find_package(nameof REQUIRED)
+find_package(pybind11 CONFIG REQUIRED)
+find_package(Python COMPONENTS Interpreter Development REQUIRED)
 find_package(roq-algo REQUIRED)
 find_package(roq-api REQUIRED)
 find_package(roq-cache REQUIRED)
@@ -46,8 +48,13 @@ find_package(roq-python-core REQUIRED)
 find_package(tomlplusplus REQUIRED)
 find_package(unordered_dense REQUIRED)
 
-find_package(Python COMPONENTS Interpreter Development)
-find_package(pybind11 CONFIG)
+# find python's site-packages
+#   https://stackoverflow.com/a/40006251
+
+execute_process(
+  COMMAND "${PYTHON_EXECUTABLE}" -c "from distutils import sysconfig as sc; print(sc.get_python_lib(prefix='', plat_specific=True))"
+  OUTPUT_VARIABLE PYTHON_SITE
+  OUTPUT_STRIP_TRAILING_WHITESPACE)
 
 # autogen
 

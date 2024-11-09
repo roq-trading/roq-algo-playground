@@ -47,9 +47,9 @@ target_link_libraries(
   PUBLIC pybind11::headers
   PRIVATE ${PROJECT_NAME}-impl roq-python-core::roq-python-core roq-algo::roq-algo fmt::fmt)
 
+# note! python packages are not allowed to use "-" (dash) in their name
 string(REPLACE "-" "_" PYTHON_PROJECT_NAME ${PROJECT_NAME}) # note! using PROJECT_NAME
 set_target_properties(${PYTHON_TARGET_NAME} PROPERTIES OUTPUT_NAME ${PYTHON_PROJECT_NAME})
 target_compile_definitions(${PYTHON_TARGET_NAME} PRIVATE ROQ_PACKAGE_NAME=${PYTHON_PROJECT_NAME})
 
-# FIXME TODO this doesn't install to site-packages https://pybind11.readthedocs.io/en/stable/compiling.html#modules-with-cmake install(TARGETS
-# ${PYTHON_TARGET_NAME} DESTINATION .)
+install(TARGETS ${PYTHON_TARGET_NAME} DESTINATION ${PYTHON_SITE}/${PYTHON_PROJECT_NAME})
