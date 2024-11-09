@@ -24,6 +24,7 @@ requirements:
     - roq-autogen
   host:
     - python
+    - setuptools
     - catch2
     - fmt
     - libabseil
