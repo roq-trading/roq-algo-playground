@@ -22,9 +22,9 @@ requirements:
     - cmake
     - make
     - roq-autogen
+    - setuptools
   host:
     - python
-    - setuptools
     - catch2
     - fmt
     - libabseil
