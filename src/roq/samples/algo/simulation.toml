@@ -1,0 +1,21 @@
+[[sources]]
+  source=0
+  market_data_latency=1ms
+  order_management_latency=1ms
+  [[accounts]]
+    name="A1"
+    [[symbols]]
+      exchange="deribit"
+      symbol="BTC-PERPETUAL"
+      long_position=3
+
+[[sources]]
+  source=1
+  market_data_latency=175ms
+  order_management_latency=175ms
+  [[accounts]]
+    name="A1"
+    [[symbols]]
+      exchange="bybit"
+      symbol="BTCUSD"
+      short_position=3

@@ -13,13 +13,15 @@
 #include "roq/algo/strategy/config.hpp"
 #include "roq/algo/strategy/type.hpp"
 
+#include "roq/client.hpp"
+
 #include "roq/samples/algo/settings.hpp"
 
 namespace roq {
 namespace samples {
 namespace algo {
 
-struct Config final {
+struct Config final : public client::Simulator2::Config {
   explicit Config(Settings const &);
 
   Config(Config &&) = default;
@@ -36,6 +38,12 @@ struct Config final {
     roq::algo::strategy::Type const type;
     std::vector<roq::algo::Leg> const legs;
   } strategy;
+
+  struct {
+  } simulation;
+
+ protected:
+  void dispatch(client::Simulator2::Config::Handler &) override;
 };
 
 }  // namespace algo
@@ -53,6 +61,8 @@ struct fmt::formatter<roq::samples::algo::Config> {
         R"(strategy={{)"
         R"(type={}, )"
         R"(legs=[{}])"
+        R"(}}, )"
+        R"(simulation={{)"
         R"(}})"
         R"(}})"sv,
         value.strategy.type,

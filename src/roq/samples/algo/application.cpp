@@ -53,15 +53,13 @@ int Application::main(args::Parser const &args) {
   return EXIT_SUCCESS;
 }
 
-void Application::simulation(
-    Settings const &settings, Factory const &factory, roq::algo::strategy::Config const &config, std::span<std::string_view const> const &params) {
+void Application::simulation(Settings const &settings, Factory const &factory, Config const &config, std::span<std::string_view const> const &params) {
   auto output_type = parse_enum<roq::algo::reporter::OutputType>(settings.simulation.reporter_output_type);
-  auto reporter = client::Simulator2::dispatch(settings, factory, config, params);
+  auto reporter = client::Simulator2::dispatch(settings, factory, config, config, params);
   (*reporter).print(output_type, settings.simulation.reporter_label);
 }
 
-void Application::trading(
-    Settings const &settings, Factory const &factory, roq::algo::strategy::Config const &config, std::span<std::string_view const> const &params) {
+void Application::trading(Settings const &settings, Factory const &factory, Config const &config, std::span<std::string_view const> const &params) {
   client::Trader2::dispatch(settings, factory, config, params);
 }
 

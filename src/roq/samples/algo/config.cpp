@@ -138,12 +138,24 @@ auto create_strategy(auto &config_file) {
   };
   return result;
 }
+
+template <typename R>
+auto create_simulation(auto &config_file) {
+  using result_type = std::remove_cvref<R>::type;
+  auto result = result_type{};
+  return result;
+}
 }  // namespace
 
 // === IMPLEMENTATION ===
 
-Config::Config(Settings const &settings) : strategy{create_strategy<decltype(strategy)>(settings.config_file)} {
+Config::Config(Settings const &settings)
+    : strategy{create_strategy<decltype(strategy)>(settings.config_file)},
+      simulation{create_simulation<decltype(simulation)>(settings.simulation_config_file)} {
   log::info("config={}"sv, *this);
+}
+
+void Config::dispatch(client::Simulator2::Config::Handler &) {
 }
 
 }  // namespace algo

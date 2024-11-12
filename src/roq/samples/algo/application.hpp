@@ -7,8 +7,7 @@
 
 #include "roq/service.hpp"
 
-#include "roq/algo/strategy/config.hpp"
-
+#include "roq/samples/algo/config.hpp"
 #include "roq/samples/algo/factory.hpp"
 #include "roq/samples/algo/settings.hpp"
 
@@ -22,9 +21,9 @@ struct Application final : public Service {
  protected:
   int main(args::Parser const &) override;
 
-  void simulation(Settings const &, Factory const &, roq::algo::strategy::Config const &, std::span<std::string_view const> const &params);
+  void simulation(Settings const &, Factory const &, Config const &, std::span<std::string_view const> const &params);
 
-  void trading(Settings const &, Factory const &, roq::algo::strategy::Config const &, std::span<std::string_view const> const &params);
+  void trading(Settings const &, Factory const &, Config const &, std::span<std::string_view const> const &params);
 };
 
 }  // namespace algo

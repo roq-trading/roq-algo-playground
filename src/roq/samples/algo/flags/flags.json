@@ -10,8 +10,16 @@
       "description": "config file (path)"
     },
     {
+      "name": "simulation_config_file",
+      "type": "std/string",
+      "validator": "roq/flags/validators/Path",
+      "required": false,
+      "description": "simulation config file (path)"
+    },
+    {
       "name": "parameters",
       "type": "std/string",
+      "required": true,
       "description": "strategy parameters (depends on strategy type as defined in the config file)"
     },
     {
