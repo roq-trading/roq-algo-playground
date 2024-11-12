@@ -1,7 +1,7 @@
 [[sources]]
   source=0
-  market_data_latency=1ms
-  order_management_latency=1ms
+  market_data_latency=5ms
+  order_management_latency=10ms
   [[accounts]]
     name="A1"
     [[symbols]]
@@ -12,7 +12,7 @@
 [[sources]]
   source=1
   market_data_latency=175ms
-  order_management_latency=175ms
+  order_management_latency=180ms
   [[accounts]]
     name="A1"
     [[symbols]]
