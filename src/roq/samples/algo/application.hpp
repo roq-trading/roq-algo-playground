@@ -21,9 +21,9 @@ struct Application final : public Service {
  protected:
   int main(args::Parser const &) override;
 
-  void simulation(Settings const &, Factory const &, Config const &, std::span<std::string_view const> const &params);
+  void simulate(Settings const &, Factory const &, Config const &, std::span<std::string_view const> const &params);
 
-  void trading(Settings const &, Factory const &, Config const &, std::span<std::string_view const> const &params);
+  void trade(Settings const &, Factory const &, Config const &, std::span<std::string_view const> const &params);
 };
 
 }  // namespace algo

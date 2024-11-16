@@ -1,0 +1,17 @@
+[[sources]]
+market_data_latency_ms=5
+order_management_latency_ms=10
+
+[[sources.accounts.A1]]
+exchange="deribit"
+symbol="BTC-PERPETUAL"
+long_position=3
+
+[[sources]]
+market_data_latency_ms=175
+order_management_latency_ms=180
+
+[[sources.accounts.A1]]
+exchange="bybit"
+symbol="BTCUSD"
+short_position=3

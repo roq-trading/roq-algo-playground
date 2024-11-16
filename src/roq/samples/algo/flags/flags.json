@@ -3,24 +3,30 @@
   "type": "flags",
   "values": [
     {
-      "name": "config_file",
+      "name": "strategy_config_file",
       "type": "std/string",
       "validator": "roq/flags/validators/Path",
       "required": true,
-      "description": "config file (path)"
+      "description": "strategy config file (path)"
     },
     {
-      "name": "simulation_config_file",
+      "name": "strategy_type",
       "type": "std/string",
-      "validator": "roq/flags/validators/Path",
-      "required": false,
-      "description": "simulation config file (path)"
+      "required": true,
+      "description": "strategy type"
     },
     {
-      "name": "parameters",
+      "name": "strategy_parameters",
       "type": "std/string",
       "required": true,
       "description": "strategy parameters (depends on strategy type as defined in the config file)"
+    },
+    {
+      "name": "simulator_config_file",
+      "type": "std/string",
+      "validator": "roq/flags/validators/Path",
+      "required": false,
+      "description": "simulator config file (path)"
     },
     {
       "name": "simulate",

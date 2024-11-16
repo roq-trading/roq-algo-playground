@@ -35,7 +35,6 @@ requirements:
     - roq-market
     - roq-oss-benchmark
     - roq-oss-magic_enum
-    - roq-oss-nameof
     - roq-oss-unordered_dense
     - roq-python-core
     - roq-utils

@@ -3,17 +3,10 @@
 #pragma once
 
 #include <fmt/core.h>
-#include <fmt/ranges.h>
-
-#include <string>
-#include <vector>
-
-#include "roq/algo/leg.hpp"
 
 #include "roq/algo/strategy/config.hpp"
-#include "roq/algo/strategy/type.hpp"
 
-#include "roq/client.hpp"
+#include "roq/algo/simulator/config.hpp"
 
 #include "roq/samples/algo/settings.hpp"
 
@@ -21,29 +14,18 @@ namespace roq {
 namespace samples {
 namespace algo {
 
-struct Config final : public client::Simulator2::Config {
+struct Config final {
   explicit Config(Settings const &);
 
   Config(Config &&) = default;
   Config(Config const &) = delete;
 
-  operator roq::algo::strategy::Config() const {
-    return {
-        .legs = strategy.legs,
-        .strategy_id = {},
-    };
-  }
-
-  struct {
-    roq::algo::strategy::Type const type;
-    std::vector<roq::algo::Leg> const legs;
-  } strategy;
-
-  struct {
-  } simulation;
+  operator roq::algo::strategy::Config const &() const { return strategy_; }
+  operator roq::algo::simulator::Config const &() const { return simulator_; }
 
  protected:
-  void dispatch(client::Simulator2::Config::Handler &) override;
+  roq::algo::strategy::Config const strategy_;
+  roq::algo::simulator::Config const simulator_;
 };
 
 }  // namespace algo
@@ -55,17 +37,15 @@ struct fmt::formatter<roq::samples::algo::Config> {
   constexpr auto parse(format_parse_context &context) { return std::begin(context); }
   auto format(roq::samples::algo::Config const &value, format_context &context) const {
     using namespace std::literals;
+    auto &strategy = static_cast<roq::algo::strategy::Config const &>(value);
+    auto &simulator = static_cast<roq::algo::simulator::Config const &>(value);
     return fmt::format_to(
         context.out(),
         R"({{)"
-        R"(strategy={{)"
-        R"(type={}, )"
-        R"(legs=[{}])"
-        R"(}}, )"
-        R"(simulation={{)"
-        R"(}})"
+        R"(strategy={}, )"
+        R"(simulator={})"
         R"(}})"sv,
-        value.strategy.type,
-        fmt::join(value.strategy.legs, ", "sv));
+        strategy,
+        simulator);
   }
 };

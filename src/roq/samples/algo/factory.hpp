@@ -6,6 +6,8 @@
 
 #include "roq/algo/market_data_source.hpp"
 
+#include "roq/algo/strategy/type.hpp"
+
 #include "roq/algo/matcher/type.hpp"
 
 #include "roq/samples/algo/config.hpp"
@@ -29,6 +31,7 @@ struct Factory final : public client::Simulator2::Factory {
  private:
   Settings const &settings_;
   Config const &config_;
+  roq::algo::strategy::Type const strategy_type_;
   roq::algo::matcher::Type const matcher_type_;
   roq::algo::MarketDataSource const market_data_source_;
 };
