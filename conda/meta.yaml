@@ -30,7 +30,10 @@ requirements:
     - roq-api
     - roq-cache
     - roq-client
+    - roq-codec
+    - roq-fix
     - roq-flags
+    - roq-io
     - roq-logging
     - roq-market
     - roq-oss-benchmark

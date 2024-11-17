@@ -13,18 +13,18 @@ target_link_libraries(
   ${TARGET_NAME}
   PRIVATE ${TARGET_NAME}-flags
           ${PROJECT_NAME}-impl
+          roq-algo::roq-algo
+          roq-api::roq-api
+          roq-cache::roq-cache
           roq-client::roq-client
           roq-client::roq-client-flags
-          roq-algo::roq-algo
-          roq-cache::roq-cache
-          roq-market::roq-market
+          roq-flags::roq-flags
           roq-logging::roq-logging
           roq-logging::roq-logging-flags
-          roq-flags::roq-flags
-          roq-api::roq-api
+          roq-market::roq-market
+          fmt::fmt
           tomlplusplus::tomlplusplus
-          unordered_dense::unordered_dense
-          fmt::fmt)
+          unordered_dense::unordered_dense)
 
 if(ROQ_BUILD_TYPE STREQUAL "Release")
   set_target_properties(${TARGET_NAME} PROPERTIES LINK_FLAGS_RELEASE -s)

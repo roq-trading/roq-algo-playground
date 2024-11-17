@@ -35,20 +35,26 @@ find_package(absl REQUIRED)
 find_package(fmt REQUIRED)
 find_package(magic_enum REQUIRED)
 find_package(pybind11 CONFIG REQUIRED)
-find_package(Python COMPONENTS Interpreter Development REQUIRED)
+find_package(
+  Python
+  COMPONENTS Interpreter Development
+  REQUIRED)
 find_package(roq-algo REQUIRED)
 find_package(roq-api REQUIRED)
 find_package(roq-cache REQUIRED)
 find_package(roq-client REQUIRED)
+find_package(roq-codec REQUIRED)
+find_package(roq-fix REQUIRED)
 find_package(roq-flags REQUIRED)
+find_package(roq-io REQUIRED)
 find_package(roq-logging REQUIRED)
 find_package(roq-market REQUIRED)
 find_package(roq-python-core REQUIRED)
+find_package(roq-utils REQUIRED)
 find_package(tomlplusplus REQUIRED)
 find_package(unordered_dense REQUIRED)
 
-# find python's site-packages
-#   https://stackoverflow.com/a/40006251
+# find python's site-packages https://stackoverflow.com/a/40006251
 
 message(PYTHON_EXECUTABLE="${PYTHON_EXECUTABLE}")
 
