@@ -45,7 +45,7 @@ pybind11_add_module(${PYTHON_TARGET_NAME} ${PYTHON_SOURCES})
 target_link_libraries(
   ${PYTHON_TARGET_NAME}
   PUBLIC pybind11::headers
-  PRIVATE ${PROJECT_NAME}-impl roq-algo::roq-algo roq-logging::roq-logging roq-python-core::roq-python-core fmt::fmt)
+  PRIVATE ${PROJECT_NAME}-impl roq-algo::roq-algo roq-python-core::roq-python-core fmt::fmt)
 
 # note! python packages are not allowed to use "-" (dash) in their name
 string(REPLACE "-" "_" PYTHON_PROJECT_NAME ${PROJECT_NAME}) # note! using PROJECT_NAME
