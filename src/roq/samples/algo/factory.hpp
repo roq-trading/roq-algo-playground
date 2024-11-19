@@ -17,7 +17,7 @@ namespace roq {
 namespace samples {
 namespace algo {
 
-struct Factory final : public client::Simulator2::Factory {
+struct Factory final : public client::Simulator::Factory {
   Factory(Settings const &, Config const &);
 
   std::unique_ptr<roq::algo::Strategy> create_strategy(

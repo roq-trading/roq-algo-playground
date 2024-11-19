@@ -41,7 +41,7 @@ int Application::main(args::Parser const &args) {
 
 void Application::simulate(Settings const &settings, Factory const &factory, Config const &config, std::span<std::string_view const> const &params) {
   auto output_type = utils::parse_enum<roq::algo::reporter::OutputType>(settings.simulation.reporter_output_type);
-  auto reporter = client::Simulator2::dispatch(settings, factory, config, config, params);
+  auto reporter = client::Simulator::dispatch(settings, factory, config, config, params);
   (*reporter).print(output_type, settings.simulation.reporter_label);
 }
 
