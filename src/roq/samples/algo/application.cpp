@@ -4,7 +4,8 @@
 
 #include "roq/utils/enum.hpp"
 
-#include "roq/client.hpp"
+#include "roq/client/simulator.hpp"
+#include "roq/client/trader.hpp"
 
 using namespace std::literals;
 
@@ -21,7 +22,8 @@ int Application::main(args::Parser const &args) {
   Config config{settings};
 
   auto size = std::size(static_cast<roq::algo::strategy::Config const &>(config).legs);
-  if (std::size(params) < size) {
+
+  if (size > std::size(params)) {
     log::error("You must provide at least {} argument(s)! (got {})"sv, size, std::size(params));
     log::error("  For live trading: paths to unix sockets (the .sock files created by the gateways)"sv);
     log::error("  For simulation: paths to event-logs (the .roq files created by the gateways)"sv);

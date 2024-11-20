@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include "roq/client.hpp"
-
 #include "roq/algo/market_data_source.hpp"
 
 #include "roq/algo/strategy/type.hpp"
 
 #include "roq/algo/matcher/type.hpp"
+
+#include "roq/client/simulator.hpp"
 
 #include "roq/samples/algo/config.hpp"
 #include "roq/samples/algo/settings.hpp"
