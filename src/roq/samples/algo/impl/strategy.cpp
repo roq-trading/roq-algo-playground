@@ -91,7 +91,7 @@ Strategy::Strategy(
 
 void Strategy::operator()(Event<Timer> const &event) {
   check(event);
-  auto &[message_info, timer] = event;
+  [[maybe_unused]] auto &[message_info, timer] = event;
   assert(timer.now > 0ns);
   // XXX TODO process delayed order requests
 }
@@ -227,7 +227,7 @@ void Strategy::operator()(Event<MarketByOrderUpdate> const &event) {
 void Strategy::operator()(Event<OrderAck> const &event, cache::Order const &) {
   check(event);
   auto &[message_info, order_ack] = event;
-  auto &source = sources_[message_info.source];
+  [[maybe_unused]] auto &source = sources_[message_info.source];
   assert(source.ready);
   auto callback = [&]([[maybe_unused]] auto &account, [[maybe_unused]] auto &instrument) {
     switch (order_ack.origin) {
