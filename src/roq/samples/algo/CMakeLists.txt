@@ -11,7 +11,7 @@ add_dependencies(${TARGET_NAME} ${TARGET_NAME}-flags-autogen-headers)
 
 target_link_libraries(
   ${TARGET_NAME}
-  PRIVATE ${TARGET_NAME}-flags
+  PRIVATE ${PROJECT_NAME}-flags
           ${PROJECT_NAME}-arbitrage
           roq-algo::roq-algo
           roq-api::roq-api
@@ -35,7 +35,9 @@ target_compile_definitions(${TARGET_NAME} PRIVATE ROQ_PACKAGE_NAME="${PROJECT_NA
 
 install(TARGETS ${TARGET_NAME})
 
-# python
+# ##############################################################################################################################################################
+# !!! EXPERIMENTAL !!! ###
+# ##############################################################################################################################################################
 
 set(PYTHON_TARGET_NAME ${PROJECT_NAME}-python)
 
