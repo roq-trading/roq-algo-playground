@@ -14,7 +14,7 @@
 namespace roq {
 namespace samples {
 namespace algo {
-namespace impl {
+namespace arbitrage {
 
 struct Parameters final {
   roq::algo::MarketDataSource market_data_source = {};
@@ -26,15 +26,15 @@ struct Parameters final {
   uint8_t publish_source = {};
 };
 
-}  // namespace impl
+}  // namespace arbitrage
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq
 
 template <>
-struct fmt::formatter<roq::samples::algo::impl::Parameters> {
+struct fmt::formatter<roq::samples::algo::arbitrage::Parameters> {
   constexpr auto parse(format_parse_context &context) { return std::begin(context); }
-  auto format(roq::samples::algo::impl::Parameters const &value, format_context &context) const {
+  auto format(roq::samples::algo::arbitrage::Parameters const &value, format_context &context) const {
     using namespace std::literals;
     return fmt::format_to(
         context.out(),

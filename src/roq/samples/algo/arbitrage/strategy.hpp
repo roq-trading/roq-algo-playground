@@ -13,13 +13,13 @@
 
 #include "roq/algo/strategy/config.hpp"
 
-#include "roq/samples/algo/impl/instrument.hpp"
-#include "roq/samples/algo/impl/parameters.hpp"
+#include "roq/samples/algo/arbitrage/instrument.hpp"
+#include "roq/samples/algo/arbitrage/parameters.hpp"
 
 namespace roq {
 namespace samples {
 namespace algo {
-namespace impl {
+namespace arbitrage {
 
 // simple arbitrage
 //
@@ -39,6 +39,7 @@ namespace impl {
 
 struct Strategy final : public roq::algo::Strategy {
   Strategy(roq::algo::Strategy::Dispatcher &, roq::algo::OrderCache &, roq::algo::strategy::Config const &, Parameters const &);
+  Strategy(roq::algo::Strategy::Dispatcher &, roq::algo::OrderCache &, roq::algo::strategy::Config const &, std::string_view const &);
 
   Strategy(Strategy &&) = delete;
   Strategy(Strategy const &) = delete;
@@ -139,7 +140,7 @@ struct Strategy final : public roq::algo::Strategy {
   uint64_t max_order_id_ = {};
 };
 
-}  // namespace impl
+}  // namespace arbitrage
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq

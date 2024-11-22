@@ -1,7 +1,7 @@
 set(TARGET_NAME ${PROJECT_NAME})
 
 add_subdirectory(flags)
-add_subdirectory(impl)
+add_subdirectory(arbitrage)
 
 set(SOURCES application.cpp config.cpp factory.cpp settings.cpp main.cpp)
 
@@ -12,7 +12,7 @@ add_dependencies(${TARGET_NAME} ${TARGET_NAME}-flags-autogen-headers)
 target_link_libraries(
   ${TARGET_NAME}
   PRIVATE ${TARGET_NAME}-flags
-          ${PROJECT_NAME}-impl
+          ${PROJECT_NAME}-arbitrage
           roq-algo::roq-algo
           roq-api::roq-api
           roq-cache::roq-cache
@@ -22,6 +22,7 @@ target_link_libraries(
           roq-logging::roq-logging
           roq-logging::roq-logging-flags
           roq-market::roq-market
+          roq-utils::roq-utils
           fmt::fmt
           tomlplusplus::tomlplusplus
           unordered_dense::unordered_dense)
@@ -45,7 +46,7 @@ pybind11_add_module(${PYTHON_TARGET_NAME} ${PYTHON_SOURCES})
 target_link_libraries(
   ${PYTHON_TARGET_NAME}
   PUBLIC pybind11::headers
-  PRIVATE ${PROJECT_NAME}-impl roq-algo::roq-algo roq-python-core::roq-python-core fmt::fmt)
+  PRIVATE ${PROJECT_NAME}-arbitrage roq-algo::roq-algo roq-python-core::roq-python-core fmt::fmt)
 
 # note! python packages are not allowed to use "-" (dash) in their name
 string(REPLACE "-" "_" PYTHON_PROJECT_NAME ${PROJECT_NAME}) # note! using PROJECT_NAME

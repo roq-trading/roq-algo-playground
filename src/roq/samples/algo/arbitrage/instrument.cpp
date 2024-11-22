@@ -1,13 +1,13 @@
 /* Copyright (c) 2017-2025, Hans Erik Thrane */
 
-#include "roq/samples/algo/impl/instrument.hpp"
+#include "roq/samples/algo/arbitrage/instrument.hpp"
 
 using namespace std::literals;
 
 namespace roq {
 namespace samples {
 namespace algo {
-namespace impl {
+namespace arbitrage {
 
 // === HELPERS ===
 
@@ -42,7 +42,7 @@ void Instrument::reset() {
   order_id = {};
 }
 
-}  // namespace impl
+}  // namespace arbitrage
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq

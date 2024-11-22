@@ -1,4 +1,4 @@
-set(TARGET_NAME ${PROJECT_NAME}-impl)
+set(TARGET_NAME ${PROJECT_NAME}-arbitrage)
 
 set(SOURCES instrument.cpp strategy.cpp)
 
