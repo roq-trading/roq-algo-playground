@@ -10,7 +10,7 @@
 
 #include "roq/algo/reporter/summary.hpp"
 
-#include "roq/samples/algo/arbitrage/strategy.hpp"
+#include "roq/samples/algo/strategy/factory.hpp"
 
 using namespace std::literals;
 
@@ -28,7 +28,7 @@ Factory::Factory(Settings const &settings, Config const &config)
 
 std::unique_ptr<roq::algo::Strategy> Factory::create_strategy(
     roq::algo::Strategy::Dispatcher &dispatcher, roq::algo::OrderCache &order_cache, roq::algo::strategy::Config const &config) const {
-  return std::make_unique<arbitrage::Strategy>(dispatcher, order_cache, config, settings_.strategy_parameters);
+  return strategy::Factory::create(dispatcher, order_cache, config, settings_.strategy_parameters);
 }
 
 std::unique_ptr<roq::algo::Reporter> Factory::create_reporter() const {

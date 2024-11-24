@@ -1,6 +1,6 @@
 /* Copyright (c) 2017-2025, Hans Erik Thrane */
 
-#include "roq/samples/algo/arbitrage/strategy.hpp"
+#include "roq/samples/algo/strategy/arbitrage.hpp"
 
 #include "roq/logging.hpp"
 
@@ -15,58 +15,11 @@ using namespace std::literals;
 namespace roq {
 namespace samples {
 namespace algo {
-namespace arbitrage {
+namespace strategy {
 
 // === HELPERS ===
 
 namespace {
-auto parameters_from_string(auto &parameters) {
-  Parameters result;
-  // parse
-  auto callback = [&](auto &key, auto &value) {
-    assert(!std::empty(key));
-    assert(!std::empty(value));
-    enum class Key {
-      MARKET_DATA_SOURCE,
-      MAX_AGE,
-      THRESHOLD,
-      QUANTITY_0,
-      MIN_POSITION_0,
-      MAX_POSITION_0,
-      PUBLISH_SOURCE,
-    };
-    auto key_2 = utils::parse_enum<Key>(key);
-    log::debug(R"(key={}, value="{}")"sv, magic_enum::enum_name(key_2), value);
-    switch (key_2) {
-      case Key::MARKET_DATA_SOURCE:
-        utils::variant::parse(result.market_data_source, value);
-        break;
-      case Key::MAX_AGE:
-        result.max_age = 10s;  // XXX FIXME TODO parse period
-        break;
-      case Key::THRESHOLD:
-        utils::variant::parse(result.threshold, value);
-        break;
-      case Key::QUANTITY_0:
-        utils::variant::parse(result.quantity_0, value);
-        break;
-      case Key::MIN_POSITION_0:
-        utils::variant::parse(result.min_position_0, value);
-        break;
-      case Key::MAX_POSITION_0:
-        utils::variant::parse(result.max_position_0, value);
-        break;
-      case Key::PUBLISH_SOURCE:
-        utils::variant::parse(result.publish_source, value);
-        break;
-    }
-  };
-  utils::key_value::Parser::dispatch(parameters, callback);
-  // validate
-  // XXX FIXME TODO implement
-  return result;
-}
-
 auto create_market_data_type(auto &config) -> SupportType {
   switch (config.market_data_source) {
     using enum roq::algo::MarketDataSource;
@@ -130,7 +83,7 @@ auto create_sources(auto &instruments) {
 
 // === IMPLEMENTATION ===
 
-Strategy::Strategy(
+Arbitrage::Arbitrage(
     roq::algo::Strategy::Dispatcher &dispatcher, roq::algo::OrderCache &order_cache, roq::algo::strategy::Config const &config, Parameters const &parameters)
     : dispatcher_{dispatcher}, strategy_id_{config.strategy_id}, max_age_{parameters.max_age}, threshold_{parameters.threshold},
       quantity_0_{parameters.quantity_0}, min_position_0_{parameters.min_position_0}, max_position_0_{parameters.max_position_0},
@@ -140,28 +93,20 @@ Strategy::Strategy(
   assert(!std::empty(sources_));
 }
 
-Strategy::Strategy(
-    roq::algo::Strategy::Dispatcher &dispatcher,
-    roq::algo::OrderCache &order_cache,
-    roq::algo::strategy::Config const &config,
-    std::string_view const &parameters)
-    : Strategy{dispatcher, order_cache, config, parameters_from_string(parameters)} {
-}
-
-void Strategy::operator()(Event<Timer> const &event) {
+void Arbitrage::operator()(Event<Timer> const &event) {
   check(event);
   [[maybe_unused]] auto &[message_info, timer] = event;
   assert(timer.now > 0ns);
   // XXX TODO process delayed order requests
 }
 
-void Strategy::operator()(Event<Connected> const &event) {
+void Arbitrage::operator()(Event<Connected> const &event) {
   check(event);
   auto &[message_info, connected] = event;
   log::info("[{}:{}] connected"sv, message_info.source, message_info.source_name);
 }
 
-void Strategy::operator()(Event<Disconnected> const &event) {
+void Arbitrage::operator()(Event<Disconnected> const &event) {
   check(event);
   auto &[message_info, disconnected] = event;
   log::info("[{}:{}] disconnected"sv, message_info.source, message_info.source_name);
@@ -174,7 +119,7 @@ void Strategy::operator()(Event<Disconnected> const &event) {
   // XXX TODO maybe cancel working orders on other sources?
 }
 
-void Strategy::operator()(Event<DownloadEnd> const &event) {
+void Arbitrage::operator()(Event<DownloadEnd> const &event) {
   check(event);
   auto &[message_info, download_end] = event;
   auto &source = sources_[message_info.source];
@@ -182,7 +127,7 @@ void Strategy::operator()(Event<DownloadEnd> const &event) {
     max_order_id_ = std::max(download_end.max_order_id, max_order_id_);
 }
 
-void Strategy::operator()(Event<Ready> const &event) {
+void Arbitrage::operator()(Event<Ready> const &event) {
   check(event);
   auto &[message_info, ready] = event;
   log::info("[{}:{}] ready"sv, message_info.source, message_info.source_name);
@@ -208,7 +153,7 @@ void Strategy::operator()(Event<Ready> const &event) {
     }
 }
 
-void Strategy::operator()(Event<StreamStatus> const &event) {
+void Arbitrage::operator()(Event<StreamStatus> const &event) {
   check(event);
   auto &[message_info, stream_status] = event;
   // XXX FIXME TODO we need better (easier) identification of the primary feed
@@ -220,7 +165,7 @@ void Strategy::operator()(Event<StreamStatus> const &event) {
 
 // note! this is only a sample, typically based on ping-pong between gateway and some exchange end-point
 // XXX FIXME TODO this is currently the raw event-log event (**NOT** correlated with simulated latency assumptions)
-void Strategy::operator()(Event<ExternalLatency> const &event) {
+void Arbitrage::operator()(Event<ExternalLatency> const &event) {
   check(event);
   auto &[message_info, external_latency] = event;
   auto &source = sources_[message_info.source];
@@ -230,7 +175,7 @@ void Strategy::operator()(Event<ExternalLatency> const &event) {
   source.stream_latency[index] = external_latency.latency;  // XXX TODO exponential smoothing
 }
 
-void Strategy::operator()(Event<GatewayStatus> const &event) {
+void Arbitrage::operator()(Event<GatewayStatus> const &event) {
   check(event);
   auto &[message_info, gateway_status] = event;
   auto &source = sources_[message_info.source];
@@ -240,13 +185,13 @@ void Strategy::operator()(Event<GatewayStatus> const &event) {
   update(message_info);
 }
 
-void Strategy::operator()(Event<ReferenceData> const &event) {
+void Arbitrage::operator()(Event<ReferenceData> const &event) {
   check(event);
   auto callback = [&](auto &instrument) { instrument(event); };
   get_instrument(event, callback);
 }
 
-void Strategy::operator()(Event<MarketStatus> const &event) {
+void Arbitrage::operator()(Event<MarketStatus> const &event) {
   check(event);
   auto callback = [&](auto &instrument) {
     if (instrument(event))
@@ -255,7 +200,7 @@ void Strategy::operator()(Event<MarketStatus> const &event) {
   get_instrument(event, callback);
 }
 
-void Strategy::operator()(Event<TopOfBook> const &event) {
+void Arbitrage::operator()(Event<TopOfBook> const &event) {
   check(event);
   auto callback = [&](auto &instrument) {
     if (instrument(event))
@@ -264,7 +209,7 @@ void Strategy::operator()(Event<TopOfBook> const &event) {
   get_instrument(event, callback);
 }
 
-void Strategy::operator()(Event<MarketByPriceUpdate> const &event) {
+void Arbitrage::operator()(Event<MarketByPriceUpdate> const &event) {
   check(event);
   auto callback = [&](auto &instrument) {
     if (instrument(event))
@@ -273,7 +218,7 @@ void Strategy::operator()(Event<MarketByPriceUpdate> const &event) {
   get_instrument(event, callback);
 }
 
-void Strategy::operator()(Event<MarketByOrderUpdate> const &event) {
+void Arbitrage::operator()(Event<MarketByOrderUpdate> const &event) {
   check(event);
   auto callback = [&](auto &instrument) {
     if (instrument(event))
@@ -283,7 +228,7 @@ void Strategy::operator()(Event<MarketByOrderUpdate> const &event) {
 }
 
 // XXX FIXME TODO manage reject
-void Strategy::operator()(Event<OrderAck> const &event, cache::Order const &) {
+void Arbitrage::operator()(Event<OrderAck> const &event, cache::Order const &) {
   check(event);
   auto &[message_info, order_ack] = event;
   [[maybe_unused]] auto &source = sources_[message_info.source];
@@ -308,7 +253,7 @@ void Strategy::operator()(Event<OrderAck> const &event, cache::Order const &) {
     log::fatal("Unexepcted: order_ack={}"sv, order_ack);
 }
 
-void Strategy::operator()(Event<OrderUpdate> const &event, cache::Order const &) {
+void Arbitrage::operator()(Event<OrderUpdate> const &event, cache::Order const &) {
   check(event);
   if (is_mine(event)) {
     auto &[message_info, order_update] = event;
@@ -368,7 +313,7 @@ void Strategy::operator()(Event<OrderUpdate> const &event, cache::Order const &)
   }
 }
 
-void Strategy::operator()(Event<TradeUpdate> const &event, cache::Order const &) {
+void Arbitrage::operator()(Event<TradeUpdate> const &event, cache::Order const &) {
   check(event);
   if (is_mine(event)) {
     auto callback = [&]([[maybe_unused]] auto &account, auto &instrument) { instrument(event); };
@@ -376,17 +321,17 @@ void Strategy::operator()(Event<TradeUpdate> const &event, cache::Order const &)
   }
 }
 
-void Strategy::operator()(Event<PositionUpdate> const &event) {
+void Arbitrage::operator()(Event<PositionUpdate> const &event) {
   check(event);
   auto callback = [&]([[maybe_unused]] auto &account, auto &instrument) { instrument(event); };
   get_account_and_instrument(event, callback);
 }
 
-void Strategy::operator()(Event<FundsUpdate> const &event) {
+void Arbitrage::operator()(Event<FundsUpdate> const &event) {
   check(event);
 }
 
-void Strategy::operator()(Event<PortfolioUpdate> const &event) {
+void Arbitrage::operator()(Event<PortfolioUpdate> const &event) {
   check(event);
   if (is_mine(event)) {
     assert(false);  // XXX FIXME TODO implement (when supported)
@@ -396,7 +341,7 @@ void Strategy::operator()(Event<PortfolioUpdate> const &event) {
 // utils
 
 template <typename Callback>
-void Strategy::get_instruments_by_source(MessageInfo const &message_info, Callback callback) {
+void Arbitrage::get_instruments_by_source(MessageInfo const &message_info, Callback callback) {
   if (message_info.source >= std::size(sources_)) [[unlikely]]
     log::fatal(R"(Unexpected: source={})"sv, message_info.source);
   auto &source = sources_[message_info.source];
@@ -408,7 +353,7 @@ void Strategy::get_instruments_by_source(MessageInfo const &message_info, Callba
 }
 
 template <typename T, typename Callback>
-bool Strategy::get_instrument(Event<T> const &event, Callback callback) {
+bool Arbitrage::get_instrument(Event<T> const &event, Callback callback) {
   auto &[message_info, value] = event;
   if (message_info.source >= std::size(sources_)) [[unlikely]]
     log::fatal(R"(Unexpected: source={})"sv, message_info.source);
@@ -426,7 +371,7 @@ bool Strategy::get_instrument(Event<T> const &event, Callback callback) {
 }
 
 template <typename T, typename Callback>
-bool Strategy::get_account_and_instrument(Event<T> const &event, Callback callback) {
+bool Arbitrage::get_account_and_instrument(Event<T> const &event, Callback callback) {
   auto &[message_info, value] = event;
   if (message_info.source >= std::size(sources_)) [[unlikely]]
     log::fatal(R"(Unexpected: source={})"sv, message_info.source);
@@ -448,7 +393,7 @@ bool Strategy::get_account_and_instrument(Event<T> const &event, Callback callba
 }
 
 template <typename T>
-void Strategy::update_latency(std::chrono::nanoseconds &latency, Event<T> const &event) {
+void Arbitrage::update_latency(std::chrono::nanoseconds &latency, Event<T> const &event) {
   auto &[message_info, value] = event;
   auto base = [&]() {
     if (value.exchange_time_utc.count())
@@ -460,7 +405,7 @@ void Strategy::update_latency(std::chrono::nanoseconds &latency, Event<T> const 
   latency = message_info.receive_time_utc - base;
 }
 
-void Strategy::update(MessageInfo const &message_info) {
+void Arbitrage::update(MessageInfo const &message_info) {
   for (size_t i = 0; i < std::size(instruments_); ++i) {
     log::debug("instrument[{}]={}"sv, i, instruments_[i]);
     // XXX FIXME TODO check order state => maybe cancel or timeout?
@@ -479,7 +424,7 @@ void Strategy::update(MessageInfo const &message_info) {
     publish_statistics(item);
 }
 
-void Strategy::check_spread(MessageInfo const &message_info, Instrument &lhs, Instrument &rhs) {
+void Arbitrage::check_spread(MessageInfo const &message_info, Instrument &lhs, Instrument &rhs) {
   auto [bid_0, ask_0] = lhs.get_best();
   auto [bid_1, ask_1] = rhs.get_best();
   auto spread_0 = bid_0 - ask_1;  // note! sell(lhs), buy(rhs)
@@ -504,7 +449,7 @@ void Strategy::check_spread(MessageInfo const &message_info, Instrument &lhs, In
     maybe_trade_spread(message_info, Side::BUY, lhs, rhs);
 }
 
-void Strategy::maybe_trade_spread(MessageInfo const &, Side side, Instrument &lhs, Instrument &rhs) {
+void Arbitrage::maybe_trade_spread(MessageInfo const &, Side side, Instrument &lhs, Instrument &rhs) {
   auto helper = [this](auto side, auto &instrument) -> bool {
     assert(instrument.order_state == OrderState::IDLE);
     assert(instrument.order_id == 0);
@@ -551,7 +496,7 @@ void Strategy::maybe_trade_spread(MessageInfo const &, Side side, Instrument &lh
   }
 }
 
-bool Strategy::can_trade(Side side, Instrument &instrument) const {
+bool Arbitrage::can_trade(Side side, Instrument &instrument) const {
   auto position = instrument.current_position();
   auto position_0 = position;  // XXX FIXME TODO scale to base of instrument[0]
   switch (side) {
@@ -568,13 +513,13 @@ bool Strategy::can_trade(Side side, Instrument &instrument) const {
 }
 
 template <typename T>
-bool Strategy::is_mine(Event<T> const &event) const {
+bool Arbitrage::is_mine(Event<T> const &event) const {
   auto &[message_info, value] = event;
   return !strategy_id_ || strategy_id_ == value.strategy_id;
 }
 
 template <typename T>
-void Strategy::check(Event<T> const &event) {
+void Arbitrage::check(Event<T> const &event) {
   auto &[message_info, value] = event;
   log::debug(
       "[{}:{}] receive_time={}, receive_time_utc={}, {}={}"sv,
@@ -587,7 +532,7 @@ void Strategy::check(Event<T> const &event) {
 }
 
 // XXX FIXME TODO proper (for now, just testing simulator support)
-void Strategy::publish_statistics(Instrument &instrument) {
+void Arbitrage::publish_statistics(Instrument &instrument) {
   auto &top_of_book = instrument.top_of_book();
   std::array<Measurement, 4> measurements{{
       {
@@ -641,7 +586,7 @@ void Strategy::publish_statistics(Instrument &instrument) {
   dispatcher_.send(custom_matrix, publish_source_);
 }
 
-}  // namespace arbitrage
+}  // namespace strategy
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq

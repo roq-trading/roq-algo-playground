@@ -1,6 +1,6 @@
-set(TARGET_NAME ${PROJECT_NAME}-arbitrage)
+set(TARGET_NAME ${PROJECT_NAME}-strategy)
 
-set(SOURCES instrument.cpp strategy.cpp)
+set(SOURCES arbitrage.cpp factory.cpp instrument.cpp)
 
 add_library(${TARGET_NAME} OBJECT ${SOURCES})
 

@@ -20,7 +20,7 @@
 namespace roq {
 namespace samples {
 namespace algo {
-namespace arbitrage {
+namespace strategy {
 
 enum class OrderState {
   IDLE,
@@ -110,13 +110,13 @@ struct Instrument final {
   uint64_t order_id = {};
 };
 
-}  // namespace arbitrage
+}  // namespace strategy
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq
 
 template <>
-struct fmt::formatter<roq::samples::algo::arbitrage::Instrument> {
+struct fmt::formatter<roq::samples::algo::strategy::Instrument> {
   constexpr auto parse(format_parse_context &context) { return std::begin(context); }
-  auto format(roq::samples::algo::arbitrage::Instrument const &value, format_context &context) const { return value.format_helper(context.out()); }
+  auto format(roq::samples::algo::strategy::Instrument const &value, format_context &context) const { return value.format_helper(context.out()); }
 };

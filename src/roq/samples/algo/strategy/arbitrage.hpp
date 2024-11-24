@@ -13,15 +13,15 @@
 
 #include "roq/algo/strategy/config.hpp"
 
-#include "roq/samples/algo/arbitrage/instrument.hpp"
-#include "roq/samples/algo/arbitrage/parameters.hpp"
+#include "roq/samples/algo/strategy/instrument.hpp"
+#include "roq/samples/algo/strategy/parameters.hpp"
 
 namespace roq {
 namespace samples {
 namespace algo {
-namespace arbitrage {
+namespace strategy {
 
-// simple arbitrage
+// simple strategy
 //
 // prepared to support a list of instruments (n >= 2)
 //
@@ -37,12 +37,11 @@ namespace arbitrage {
 // - multiplier (compare real size)
 // - threshold
 
-struct Strategy final : public roq::algo::Strategy {
-  Strategy(roq::algo::Strategy::Dispatcher &, roq::algo::OrderCache &, roq::algo::strategy::Config const &, Parameters const &);
-  Strategy(roq::algo::Strategy::Dispatcher &, roq::algo::OrderCache &, roq::algo::strategy::Config const &, std::string_view const &);
+struct Arbitrage final : public roq::algo::Strategy {
+  Arbitrage(roq::algo::Strategy::Dispatcher &, roq::algo::OrderCache &, roq::algo::strategy::Config const &, Parameters const &);
 
-  Strategy(Strategy &&) = delete;
-  Strategy(Strategy const &) = delete;
+  Arbitrage(Arbitrage &&) = delete;
+  Arbitrage(Arbitrage const &) = delete;
 
  protected:
   void operator()(Event<Timer> const &) override;
@@ -140,7 +139,7 @@ struct Strategy final : public roq::algo::Strategy {
   uint64_t max_order_id_ = {};
 };
 
-}  // namespace arbitrage
+}  // namespace strategy
 }  // namespace algo
 }  // namespace samples
 }  // namespace roq
