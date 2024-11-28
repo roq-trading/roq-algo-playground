@@ -11,11 +11,13 @@ build:
 
 requirements:
   build:
-    - python                              # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
     - {{ compiler('cxx') }}
+    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+    - python                              # [build_platform != target_platform]
     - clang-format
     - cmake
+    - coreutils                                                                                                                                                    
+    - git
     - make
     - roq-autogen
     - setuptools
