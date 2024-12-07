@@ -13,7 +13,7 @@ namespace algo {
 // === IMPLEMENTATION ===
 
 Config::Config(Settings const &settings)
-    : strategy_{roq::algo::strategy::Config::parse_file(settings.strategy_config_file)},
+    : strategy_{roq::algo::strategy::Config::parse_file(settings.config_file)},
       simulator_{roq::algo::simulator::Config::parse_file(settings.simulator_config_file)} {
   log::info("config={}"sv, *this);
 }

@@ -3,7 +3,7 @@
   "type": "flags",
   "values": [
     {
-      "name": "strategy_config_file",
+      "name": "config_file",
       "type": "std/string",
       "validator": "roq/flags/validators/Path",
       "required": true,
